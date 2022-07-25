@@ -85,6 +85,7 @@ def ajout_pollution_ville(aqi,
                           pm2_5,
                           pm10,
                           nh3,
+                          day,
                           last_update,
                           id_ville):
     """
@@ -102,7 +103,7 @@ def ajout_pollution_ville(aqi,
     :param last_update
     """
 
-    sql = """ INSERT INTO pollution ( aqi, co, no, no2, o3, so2, pm2_5, pm10, nh3, last_update, id_ville) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);"""
+    sql = """ INSERT INTO pollution ( aqi, co, no, no2, o3, so2, pm2_5, pm10, nh3, day, last_update, id_ville) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);"""
 
     connection = None
     try:
@@ -112,7 +113,7 @@ def ajout_pollution_ville(aqi,
         cursor = connection.cursor()
         record_to_insert = (aqi, co, no,
                             no2, o3, so2, pm2_5, pm10,
-                            nh3, date.today(), id_ville)
+                            nh3, date.today(), date.today(), id_ville)
         cursor.execute(sql, record_to_insert)
 
         # commit the changes to the database
@@ -130,6 +131,30 @@ def ajout_pollution_ville(aqi,
             connection.close()
 
 
+def get_last_update(nom_ville):
+    """
+    :param nom_ville:
+    :return: retourne la date de dernière mise à jour d'une ville dans la table pollution
+    """
+    sql = "select last_update from pollution inner join ville on pollution.id_ville = ville.id_ville where ville.nom = '{nom_ville}' limit 1;"
+
+    connection = None
+
+    try:
+        connection = psycopg2.connect(host=HOST, database=DATABASE, user=USER, password=PASSWORD, port=PORT)
+        cursor = connection.cursor()
+        cursor.execute(sql, nom_ville)
+        row = cursor.fetchone()
+        connection.commit()
+        cursor.close()
+
+        return row
+    except (Exception, psycopg2.DatabaseError) as error:
+        print('Error get_last_update')
+        print(error)
+    finally:
+        if connection is not None:
+            connection.close()
 
 
 

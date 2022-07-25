@@ -62,6 +62,7 @@ CREATE TABLE public.pollution (
 	pm2_5 decimal(5,2),
 	pm10 decimal(5,2),
 	nh3 decimal(5,2),
+	day date NOT NULL ,
 	last_update date NOT NULL,
 	id_ville integer NOT NULL,
 	CONSTRAINT pollution_pk PRIMARY KEY (id_pollution)
