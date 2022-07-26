@@ -58,7 +58,6 @@ def ville_exists(ville: str):
 
         cursor.execute(sql)
         row = cursor.fetchone()
-        print(row)
 
         connection.commit()
         cursor.close()
@@ -113,7 +112,7 @@ def ajout_pollution_ville(aqi,
         cursor = connection.cursor()
         record_to_insert = (aqi, co, no,
                             no2, o3, so2, pm2_5, pm10,
-                            nh3, date.today(), date.today(), id_ville)
+                            nh3, day, date.today(), id_ville)
         cursor.execute(sql, record_to_insert)
 
         # commit the changes to the database
@@ -123,8 +122,6 @@ def ajout_pollution_ville(aqi,
 
     except (Exception, psycopg2.DatabaseError) as error:
         print("Erreur ajout_prevision_ville:")
-        print(sql)
-        print(record_to_insert)
         print(error)
     finally:
         if connection is not None:
@@ -136,7 +133,7 @@ def get_last_update(nom_ville):
     :param nom_ville:
     :return: retourne la date de dernière mise à jour d'une ville dans la table pollution
     """
-    sql = "select last_update from pollution inner join ville on pollution.id_ville = ville.id_ville where ville.nom = '{nom_ville}' limit 1;"
+    sql = "select last_update from pollution inner join ville on pollution.id_ville = ville.id_ville where ville.nom = '{0}' limit 1;".format(nom_ville)
 
     connection = None
 
@@ -144,7 +141,7 @@ def get_last_update(nom_ville):
         connection = psycopg2.connect(host=HOST, database=DATABASE, user=USER, password=PASSWORD, port=PORT)
         cursor = connection.cursor()
         cursor.execute(sql, nom_ville)
-        row = cursor.fetchone()
+        row = cursor.fetchone()[0]
         connection.commit()
         cursor.close()
 
@@ -188,4 +185,28 @@ def delete_prevision_ville(nom_ville):
             connection.close()
 
 
-get_id_ville('Paris')
+def read_pollution_forecast(ville):
+    sql = "select pollution.day,pollution.aqi, pollution.co, pollution.no, pollution.no2, pollution.o3, " \
+          "pollution. so2, pollution.pm2_5, pollution.pm10, pollution.nh3 from pollution inner join ville " \
+          "on pollution.id_ville = ville.id_ville where ville.nom = '{0}' order by pollution.day;".format(ville)
+
+    connection = None
+    try:
+        connection = psycopg2.connect(host=HOST, database=DATABASE, user=USER, password=PASSWORD, port=PORT)
+        cursor = connection.cursor()
+        cursor.execute(sql, ville)
+        row = cursor.fetchall()
+        connection.commit()
+        cursor.close()
+
+        return row
+
+    except(Exception, psycopg2.DatabaseError) as error:
+        print('Error read_pollution_forecast')
+        print(error)
+    finally:
+        if connection is not None:
+            connection.close()
+
+
+get_id_ville('Dunkerque')

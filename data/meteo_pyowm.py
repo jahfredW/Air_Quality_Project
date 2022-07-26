@@ -1,12 +1,15 @@
 import datetime
-
 import pyowm
 import requests
 from pyowm.utils.config import get_default_config
 from pyowm.utils import measurables
 import pollution_data
 
+_meteo_already_exists = {}
+_pollution_already_exists = {}
+
 class PollutionPyown:
+
     #------------------------
     #Constructeur
     #------------------------
@@ -15,9 +18,9 @@ class PollutionPyown:
         self._pollution_api_initialized = False
         self._pollution_api = None
 
-        self._get_pollution_api()
+        self._get_api()
 
-    def _get_pollution_api(self):
+    def _get_api(self):
         """
         vérification que l'initialisation n'a pas déjà été faite, pour ne pas faire des traitements inutiles
         :param
@@ -38,13 +41,13 @@ class PollutionPyown:
 
         return self._pollution_api
 
-    def get_meteo_ville(self, ville):
+    def get_ville(self, ville):
         """
         recherche les villes correspondant à la chaîne de caractère donnée en paramètre
         :param ville: chaîne de carcatère qui est le nom de la ville (ou une partie du nom)
         :return: liste des villes trouvées, liste vide si aucun résultat de recherche
         """
-        pollution = self._get_pollution_api()
+        pollution = self._get_api()
         if pollution is not None:
             reg = pollution.city_id_registry()
             villes = reg.ids_for(ville, country='FR', matching='like')
@@ -56,7 +59,38 @@ class PollutionPyown:
         else:
             raise Exception("Attention, l'API Pollution n'a pas été initialisée")
 
-    def get_pollution_ville(self, ville):
+
+    def get_meteo_ville(self,ville):
+        meteo_dict = {}
+        """
+        :param ville:
+        :return: permet d'obtenir le dictionnaire des prévisions météo d'une ville
+        """
+
+        if ville in _meteo_already_exists:
+            return _meteo_already_exists[ville]
+
+        else:
+            meteo = self._get_api()
+            if meteo is not None:
+                meteo_api_data = meteo.city_id_registry()
+                location = meteo_api_data.geopoints_for(ville)
+                location = location[0]
+                meteo_api_data = meteo.weather_manager()
+
+                try:
+                    forecast = meteo_api_data.one_call(location.lat, location.lon, units='metrics')
+                    _meteo_already_exists[ville] = forecast
+
+
+                except:
+                    print("Connexion à l'API indisponible pour le moment")
+
+            else:
+                raise Exception("Attention, l'API Pollution n'a pas été initialisée")
+
+
+    def _get_pollution_ville(self, ville):
         """
         :param ville:
         :return l'objet pollution pour la ville:
@@ -64,23 +98,51 @@ class PollutionPyown:
         liste_forecast = []
         pollution_dict = {}
 
-        pollution = self._get_pollution_api()
-        if pollution is not None:
-            pol = pollution.city_id_registry()
-            emplacements = pol.geopoints_for(ville)
-            emplacement = emplacements[0]
-            pol = pollution.airpollution_manager()
-            print(emplacement.lon, emplacement.lat)
-            forecast = pol.air_quality_forecast_at_coords(emplacement.lat, emplacement.lon)
-            for f in forecast:
-                pollution_dict[f.reference_time('date').date().isoformat()] = f.air_quality_data
-            self.save_pollution_ville(ville, pollution_dict)
+        if ville in _pollution_already_exists:
+            return _pollution_already_exists[ville]
+
         else:
-            raise Exception("Attention, l'API Pollution n'a pas été initialisée")
+            pollution = self._get_api()
+            if pollution is not None:
+                pol = pollution.city_id_registry()
+                emplacements = pol.geopoints_for(ville)
+                emplacement = emplacements[0]
+                pol = pollution.airpollution_manager()
 
-        return pollution_dict
+                try:
+                    forecast = pol.air_quality_forecast_at_coords(emplacement.lat, emplacement.lon)
+                    _meteo_already_exists[ville] = forecast
+                    self.save_pollution_ville(ville, forecast)
+                    return forecast
 
-    def save_pollution_ville(self, ville, forecast_dict):
+                except:
+                    print("Connexion à l'API indisponible pour le moment")
+
+            else:
+                raise Exception("Attention, l'API Pollution n'a pas été initialisée")
+
+    def _read_pollution_ville(self, ville):
+        pollution_dict = {}
+
+        data_pollution_ville = pollution_data.read_pollution_forecast(ville)
+
+        for previsions in data_pollution_ville:
+            pollution_daily = {}
+            pollution_daily['date'] = previsions[0]
+            pollution_daily['aqi'] = previsions[1]
+            pollution_daily['co'] = previsions[2]
+            pollution_daily['no'] = previsions[3]
+            pollution_daily['no2'] = previsions[4]
+            pollution_daily['o3'] = previsions[5]
+            pollution_daily['so2'] = previsions[6]
+            pollution_daily['pm2_5'] = previsions[7]
+            pollution_daily['pm10'] = previsions[8]
+            pollution_daily['nh3'] = previsions[9]
+
+            pollution_dict[pollution_daily['date']] = pollution_daily
+
+
+    def save_pollution_ville(self, ville, forecast):
         """
         enregistrement des prévisions de la ville en base de données
         :param ville: le nom de la ville
@@ -92,9 +154,12 @@ class PollutionPyown:
             raise Exception("Save meteo ville : la ville n'a pas de correspondance")
         else:
             id_ville = pollution_data.get_id_ville(ville)[0][0]
-            print(id_ville)
 
         pollution_data.delete_prevision_ville(ville)
+
+        forecast_dict = {}
+        for f in forecast:
+            forecast_dict[f.reference_time('date').date().isoformat()] = f.air_quality_data
 
         for date, values in forecast_dict.items():
             pollution_data.ajout_pollution_ville(values['aqi'],
@@ -104,29 +169,13 @@ class PollutionPyown:
                                                  values['nh3'], date, datetime.date.today(),
                                                  id_ville)
 
-        """
-        liste_poluant = ['aqi', 'co', 'no', 'no2', 'o3', 'so2', 'pm2_5', 'pm10', 'nh3']
-
-        prevision_jour = {}
-        for item in liste_poluant:
-            prevision_jour[item] = forecast.air_quality_data.get(item,'no_data')
-        print(prevision_jour)
-
-        pollution_data.ajout_pollution_ville(prevision_jour['aqi'], prevision_jour['co'],prevision_jour['no'], prevision_jour['no2'], prevision_jour['o3'],
-                                             prevision_jour['so2'], prevision_jour['pm2_5'], prevision_jour['pm10'],
-                                             prevision_jour['nh3'], datetime.date.today(), datetime.date.today(), id_ville)
-        """
-
-
-    #def get_pm2_5(self):
-
-
 
     def _need_refresh(self, ville):
         date_last_update = pollution_data.get_last_update(ville)
 
         if date_last_update is None:
             return True
+
         else:
             delta_heures = datetime.date.today() - date_last_update
 
@@ -136,9 +185,24 @@ class PollutionPyown:
                 return False
 
 
+    def get_prevision_pollution(self, ville):
+
+        need_refresh = self._need_refresh(ville)
+
+        if need_refresh:
+            pollution_dict = {}
+            pollution_forecast = self._get_pollution_ville(ville)
+            for f in pollution_forecast:
+                pollution_dict[f.reference_time('date').date().isoformat()] = f.air_quality_data
+            return pollution_dict
+
+        else:
+            data_bdd = self._read_pollution_ville(ville)
+            return data_bdd
+
 
 
 
 p = PollutionPyown()
-print(p.get_pollution_ville('Dunkerque'))
+p.get_prevision_pollution('Paris')
 
