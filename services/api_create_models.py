@@ -40,7 +40,7 @@ class Pollution(Base):
 
 
 class User(Base):
-    __tablename__ = "user"
+    __tablename__ = "users"
     id_user = Column(Integer, primary_key=True, index=True)
     email = Column(String, unique=True, index=True)
     username = Column(String, unique=True, index=True)
