@@ -195,6 +195,7 @@ class PollutionPyown:
         if need_refresh:
             pollution_dict = {}
             pollution_forecast = self._get_pollution_ville(ville)
+            print(pollution_forecast)
             for f in pollution_forecast:
                 pollution_dict[f.reference_time('date').date().isoformat()] = f.air_quality_data
             return pollution_dict
@@ -207,5 +208,5 @@ class PollutionPyown:
 
 
 p = PollutionPyown()
-p.get_prevision_pollution('Lille')
+p.get_prevision_pollution('Paris')
 

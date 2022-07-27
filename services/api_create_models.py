@@ -17,7 +17,7 @@ class Ville(Base):
     nom = Column(String)
     code_postal = Column(Integer)
     id_departement = Column(Integer, ForeignKey('departement.id_departement'))
-    pollution_child = relationship('Pollution', back_populates="ville")
+    pollution_ville = relationship('Pollution', back_populates="ville")
     departement = relationship('Departement', back_populates="ville_child")
 
 
@@ -36,6 +36,21 @@ class Pollution(Base):
     day = Column(Date)
     last_update = Column(Date)
     id_ville = Column(Integer, ForeignKey('ville.id_ville'))
-    ville = relationship("Ville", back_populates= "pollution_child")
+    ville = relationship("Ville", back_populates="pollution_ville")
+
+
+class User(Base):
+    __tablename__ = "user"
+    id_user = Column(Integer, primary_key=True, index=True)
+    email = Column(String, unique=True, index=True)
+    username = Column(String, unique=True, index=True)
+    first_name = Column(String)
+    last_name = Column(String)
+    hashed_password = Column(String)
+    is_active = Column(Boolean, default=True)
+
+
+
+
 
 
