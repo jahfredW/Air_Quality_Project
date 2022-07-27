@@ -9,6 +9,7 @@ from sqlalchemy.orm import Session
 from auth import CreateUser, get_hash_password
 from fastapi.security import OAuth2PasswordRequestForm
 from auth import authenticate_user, create_access_token, oauth2_bearer, SECRET_KEY, ALGO
+from custom_except import get_user_exception, token_exception
 
 
 
@@ -47,10 +48,10 @@ async def get_current_user(token: str = Depends(oauth2_bearer)):
         username: str = payload.get("sub")
         id_user: int = payload.get("id")
         if username is None or id_user is None:
-            raise HTTPException(status_code=404, detail="User not found")
+            raise get_user_exception()
         return {"username" : username, "id": id_user}
     except JWTError:
-        raise HTTPException(status_code=404, detail="User not found")
+        raise get_user_exception()
 
 
 @app.post("/create/user")
@@ -76,11 +77,10 @@ async def create_new_user(create_user: CreateUser, db: Session = Depends(get_db)
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     user = authenticate_user(form_data.username, form_data.password, db)
     if not user:
-        raise HTTPException(status_code=404, detail='User Not Found')
+        raise token_exception()
     token_expires = timedelta(minutes=20)
     token = create_access_token(user.username,
                                 user.id_user,
                                 expires_delta=token_expires)
     return {"token" : token}
-
 
