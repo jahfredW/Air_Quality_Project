@@ -1,12 +1,14 @@
 import json
+from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from datetime import datetime, timedelta
+from jose import jwt, JWTError
 from fastapi import FastAPI, Depends, HTTPException
 import api_create_models
 from api_connect import engine, SessionLocal
 from sqlalchemy.orm import Session
 from auth import CreateUser, get_hash_password
 from fastapi.security import OAuth2PasswordRequestForm
-from auth import authenticate_user, create_access_token
+from auth import authenticate_user, create_access_token, oauth2_bearer, SECRET_KEY, ALGO
 
 
 
@@ -38,6 +40,19 @@ async def read_all(db: Session = Depends(get_db)):
          return pollution_model
      raise HTTPException(status_code=404, detail='Not Found')
 
+
+async def get_current_user(token: str = Depends(oauth2_bearer)):
+    try:
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGO])
+        username: str = payload.get("sub")
+        id_user: int = payload.get("id")
+        if username is None or id_user is None:
+            raise HTTPException(status_code=404, detail="User not found")
+        return {"username" : username, "id": id_user}
+    except JWTError:
+        raise HTTPException(status_code=404, detail="User not found")
+
+
 @app.post("/create/user")
 async def create_new_user(create_user: CreateUser, db: Session = Depends(get_db)):
     create_user_model = api_create_models.User()
@@ -67,3 +82,5 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
                                 user.id_user,
                                 expires_delta=token_expires)
     return {"token" : token}
+
+

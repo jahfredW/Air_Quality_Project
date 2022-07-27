@@ -66,6 +66,7 @@ def create_access_token(username: str, user_id: int, expires_delta: Optional[tim
     return jwt.encode(encode, SECRET_KEY, algorithm=ALGO)
 
 
+
 class CreateUser(BaseModel):
     """
     class simplfié hérite de Basemodel
