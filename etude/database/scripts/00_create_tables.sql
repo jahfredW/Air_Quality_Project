@@ -65,6 +65,7 @@ CREATE TABLE public.pollution (
 	day date NOT NULL ,
 	last_update date NOT NULL,
 	id_ville integer NOT NULL,
+
 	CONSTRAINT pollution_pk PRIMARY KEY (id_pollution)
 
 );

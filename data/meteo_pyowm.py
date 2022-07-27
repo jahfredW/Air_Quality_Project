@@ -4,6 +4,8 @@ import requests
 from pyowm.utils.config import get_default_config
 from pyowm.utils import measurables
 import pollution_data
+from utils.meteo_common import MeteoCommon
+
 
 _meteo_already_exists = {}
 _pollution_already_exists = {}
@@ -60,7 +62,7 @@ class PollutionPyown:
             raise Exception("Attention, l'API Pollution n'a pas été initialisée")
 
 
-    def get_meteo_ville(self,ville):
+    def _get_meteo_ville(self,ville):
         meteo_dict = {}
         """
         :param ville:
@@ -81,6 +83,7 @@ class PollutionPyown:
                 try:
                     forecast = meteo_api_data.one_call(location.lat, location.lon, units='metrics')
                     _meteo_already_exists[ville] = forecast
+                    return forecast
 
 
                 except:
@@ -204,5 +207,5 @@ class PollutionPyown:
 
 
 p = PollutionPyown()
-p.get_prevision_pollution('Paris')
+p.get_prevision_pollution('Lille')
 

@@ -3,7 +3,7 @@ from datetime import date
 import psycopg2
 
 HOST = "localhost"
-DATABASE = "prevision_db"
+DATABASE = "test2"
 USER = "dev"
 PASSWORD = "Farte512!"
 PORT = 5432

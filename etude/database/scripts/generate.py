@@ -20,7 +20,7 @@ if __name__ == '__main__':
     USER = "dev"
     PASSWORD = "Farte512!"
     SCRIPTS_DIRECTORY = "D:\\NEW_DEV\\ressources\\pythonProject\\etude\\database\\scripts\\"
-    DATABASE = "prevision_db"
+    DATABASE = "test2"
     POSTGRESQL_BIN = "D:\\NEW_DEV\\postgreSQL\\bin"
 
     SCRIPT_00 = "00_create_tables.sql"
