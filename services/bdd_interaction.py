@@ -4,7 +4,9 @@ from fastapi import FastAPI, Depends, HTTPException
 import api_create_models
 from api_connect import engine, SessionLocal
 from sqlalchemy.orm import Session
-from auth import CreateUser
+from auth import CreateUser, get_hash_password
+
+
 
 app = FastAPI()
 
@@ -43,7 +45,8 @@ async def create_new_user(create_user: CreateUser):
     create_user_model.username = create_user.username
     create_user_model.first_name = create_user.first_name
     create_user_model.last_name = create_user.last_name
-    create_user_model.hashed_password = create_user.password
+    hash_password = get_hash_password(create_user.password)
+    create_user_model.hashed_password = hash_password
     create_user_model.is_active = True
 
     return create_user_model
