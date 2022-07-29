@@ -1,0 +1,512 @@
+[
+  {
+    "id_departement": 1,
+    "code": "1",
+    "nom": "Ain"
+  },
+  {
+    "id_departement": 2,
+    "code": "2",
+    "nom": "Aisne"
+  },
+  {
+    "id_departement": 3,
+    "code": "3",
+    "nom": "Allier"
+  },
+  {
+    "id_departement": 4,
+    "code": "5",
+    "nom": "Hautes-Alpes"
+  },
+  {
+    "id_departement": 5,
+    "code": "4",
+    "nom": "Alpes-de-Haute-Provence"
+  },
+  {
+    "id_departement": 6,
+    "code": "6",
+    "nom": "Alpes-Maritimes"
+  },
+  {
+    "id_departement": 7,
+    "code": "7",
+    "nom": "Ardèche"
+  },
+  {
+    "id_departement": 8,
+    "code": "8",
+    "nom": "Ardennes"
+  },
+  {
+    "id_departement": 9,
+    "code": "9",
+    "nom": "Ariège"
+  },
+  {
+    "id_departement": 10,
+    "code": "10",
+    "nom": "Aube"
+  },
+  {
+    "id_departement": 11,
+    "code": "11",
+    "nom": "Aude"
+  },
+  {
+    "id_departement": 12,
+    "code": "12",
+    "nom": "Aveyron"
+  },
+  {
+    "id_departement": 13,
+    "code": "13",
+    "nom": "Bouches-du-Rhône"
+  },
+  {
+    "id_departement": 14,
+    "code": "14",
+    "nom": "Calvados"
+  },
+  {
+    "id_departement": 15,
+    "code": "15",
+    "nom": "Cantal"
+  },
+  {
+    "id_departement": 16,
+    "code": "16",
+    "nom": "Charente"
+  },
+  {
+    "id_departement": 17,
+    "code": "17",
+    "nom": "Charente-Maritime"
+  },
+  {
+    "id_departement": 18,
+    "code": "18",
+    "nom": "Cher"
+  },
+  {
+    "id_departement": 19,
+    "code": "19",
+    "nom": "Corrèze"
+  },
+  {
+    "id_departement": 20,
+    "code": "2A",
+    "nom": "Corse-du-sud"
+  },
+  {
+    "id_departement": 21,
+    "code": "2B",
+    "nom": "Haute-corse"
+  },
+  {
+    "id_departement": 22,
+    "code": "21",
+    "nom": "Côte-d'or"
+  },
+  {
+    "id_departement": 23,
+    "code": "22",
+    "nom": "Côtes-d'armor"
+  },
+  {
+    "id_departement": 24,
+    "code": "23",
+    "nom": "Creuse"
+  },
+  {
+    "id_departement": 25,
+    "code": "24",
+    "nom": "Dordogne"
+  },
+  {
+    "id_departement": 26,
+    "code": "25",
+    "nom": "Doubs"
+  },
+  {
+    "id_departement": 27,
+    "code": "26",
+    "nom": "Drôme"
+  },
+  {
+    "id_departement": 28,
+    "code": "27",
+    "nom": "Eure"
+  },
+  {
+    "id_departement": 29,
+    "code": "28",
+    "nom": "Eure-et-Loir"
+  },
+  {
+    "id_departement": 30,
+    "code": "29",
+    "nom": "Finistère"
+  },
+  {
+    "id_departement": 31,
+    "code": "30",
+    "nom": "Gard"
+  },
+  {
+    "id_departement": 32,
+    "code": "31",
+    "nom": "Haute-Garonne"
+  },
+  {
+    "id_departement": 33,
+    "code": "32",
+    "nom": "Gers"
+  },
+  {
+    "id_departement": 34,
+    "code": "33",
+    "nom": "Gironde"
+  },
+  {
+    "id_departement": 35,
+    "code": "34",
+    "nom": "Hérault"
+  },
+  {
+    "id_departement": 36,
+    "code": "35",
+    "nom": "Ile-et-Vilaine"
+  },
+  {
+    "id_departement": 37,
+    "code": "36",
+    "nom": "Indre"
+  },
+  {
+    "id_departement": 38,
+    "code": "37",
+    "nom": "Indre-et-Loire"
+  },
+  {
+    "id_departement": 39,
+    "code": "38",
+    "nom": "Isère"
+  },
+  {
+    "id_departement": 40,
+    "code": "39",
+    "nom": "Jura"
+  },
+  {
+    "id_departement": 41,
+    "code": "40",
+    "nom": "Landes"
+  },
+  {
+    "id_departement": 42,
+    "code": "41",
+    "nom": "Loir-et-Cher"
+  },
+  {
+    "id_departement": 43,
+    "code": "42",
+    "nom": "Loire"
+  },
+  {
+    "id_departement": 44,
+    "code": "43",
+    "nom": "Haute-Loire"
+  },
+  {
+    "id_departement": 45,
+    "code": "44",
+    "nom": "Loire-Atlantique"
+  },
+  {
+    "id_departement": 46,
+    "code": "45",
+    "nom": "Loiret"
+  },
+  {
+    "id_departement": 47,
+    "code": "46",
+    "nom": "Lot"
+  },
+  {
+    "id_departement": 48,
+    "code": "47",
+    "nom": "Lot-et-Garonne"
+  },
+  {
+    "id_departement": 49,
+    "code": "48",
+    "nom": "Lozère"
+  },
+  {
+    "id_departement": 50,
+    "code": "49",
+    "nom": "Maine-et-Loire"
+  },
+  {
+    "id_departement": 51,
+    "code": "50",
+    "nom": "Manche"
+  },
+  {
+    "id_departement": 52,
+    "code": "51",
+    "nom": "Marne"
+  },
+  {
+    "id_departement": 53,
+    "code": "52",
+    "nom": "Haute-Marne"
+  },
+  {
+    "id_departement": 54,
+    "code": "53",
+    "nom": "Mayenne"
+  },
+  {
+    "id_departement": 55,
+    "code": "54",
+    "nom": "Meurthe-et-Moselle"
+  },
+  {
+    "id_departement": 56,
+    "code": "55",
+    "nom": "Meuse"
+  },
+  {
+    "id_departement": 57,
+    "code": "56",
+    "nom": "Morbihan"
+  },
+  {
+    "id_departement": 58,
+    "code": "57",
+    "nom": "Moselle"
+  },
+  {
+    "id_departement": 59,
+    "code": "58",
+    "nom": "Nièvre"
+  },
+  {
+    "id_departement": 60,
+    "code": "59",
+    "nom": "Nord"
+  },
+  {
+    "id_departement": 61,
+    "code": "60",
+    "nom": "Oise"
+  },
+  {
+    "id_departement": 62,
+    "code": "61",
+    "nom": "Orne"
+  },
+  {
+    "id_departement": 63,
+    "code": "62",
+    "nom": "Pas-de-Calais"
+  },
+  {
+    "id_departement": 64,
+    "code": "63",
+    "nom": "Puy-de-Dôme"
+  },
+  {
+    "id_departement": 65,
+    "code": "64",
+    "nom": "Pyrénées-Atlantiques"
+  },
+  {
+    "id_departement": 66,
+    "code": "65",
+    "nom": "Hautes-Pyrénées"
+  },
+  {
+    "id_departement": 67,
+    "code": "66",
+    "nom": "Pyrénées-Orientales"
+  },
+  {
+    "id_departement": 68,
+    "code": "67",
+    "nom": "Bas-Rhin"
+  },
+  {
+    "id_departement": 69,
+    "code": "68",
+    "nom": "Haut-Rhin"
+  },
+  {
+    "id_departement": 70,
+    "code": "69",
+    "nom": "Rhône"
+  },
+  {
+    "id_departement": 71,
+    "code": "70",
+    "nom": "Haute-Saône"
+  },
+  {
+    "id_departement": 72,
+    "code": "71",
+    "nom": "Saône-et-Loire"
+  },
+  {
+    "id_departement": 73,
+    "code": "72",
+    "nom": "Sarthe"
+  },
+  {
+    "id_departement": 74,
+    "code": "73",
+    "nom": "Savoie"
+  },
+  {
+    "id_departement": 75,
+    "code": "74",
+    "nom": "Haute-Savoie"
+  },
+  {
+    "id_departement": 76,
+    "code": "75",
+    "nom": "Paris"
+  },
+  {
+    "id_departement": 77,
+    "code": "76",
+    "nom": "Seine-Maritime"
+  },
+  {
+    "id_departement": 78,
+    "code": "77",
+    "nom": "Seine-et-Marne"
+  },
+  {
+    "id_departement": 79,
+    "code": "78",
+    "nom": "Yvelines"
+  },
+  {
+    "id_departement": 80,
+    "code": "79",
+    "nom": "Deux-Sèvres"
+  },
+  {
+    "id_departement": 81,
+    "code": "80",
+    "nom": "Somme"
+  },
+  {
+    "id_departement": 82,
+    "code": "81",
+    "nom": "Tarn"
+  },
+  {
+    "id_departement": 83,
+    "code": "82",
+    "nom": "Tarn-et-Garonne"
+  },
+  {
+    "id_departement": 84,
+    "code": "83",
+    "nom": "Var"
+  },
+  {
+    "id_departement": 85,
+    "code": "84",
+    "nom": "Vaucluse"
+  },
+  {
+    "id_departement": 86,
+    "code": "85",
+    "nom": "Vendée"
+  },
+  {
+    "id_departement": 87,
+    "code": "86",
+    "nom": "Vienne"
+  },
+  {
+    "id_departement": 88,
+    "code": "87",
+    "nom": "Haute-Vienne"
+  },
+  {
+    "id_departement": 89,
+    "code": "88",
+    "nom": "Vosges"
+  },
+  {
+    "id_departement": 90,
+    "code": "89",
+    "nom": "Yonne"
+  },
+  {
+    "id_departement": 91,
+    "code": "90",
+    "nom": "Territoire de Belfort"
+  },
+  {
+    "id_departement": 92,
+    "code": "91",
+    "nom": "Essonne"
+  },
+  {
+    "id_departement": 93,
+    "code": "92",
+    "nom": "Hauts-de-Seine"
+  },
+  {
+    "id_departement": 94,
+    "code": "93",
+    "nom": "Seine-Saint-Denis"
+  },
+  {
+    "id_departement": 95,
+    "code": "94",
+    "nom": "Val-de-Marne"
+  },
+  {
+    "id_departement": 96,
+    "code": "95",
+    "nom": "Val-d'oise"
+  },
+  {
+    "id_departement": 97,
+    "code": "976",
+    "nom": "Mayotte"
+  },
+  {
+    "id_departement": 98,
+    "code": "971",
+    "nom": "Guadeloupe"
+  },
+  {
+    "id_departement": 99,
+    "code": "973",
+    "nom": "Guyane"
+  },
+  {
+    "id_departement": 100,
+    "code": "972",
+    "nom": "Martinique"
+  },
+  {
+    "id_departement": 101,
+    "code": "974",
+    "nom": "Réunion"
+  },
+  {
+    "id_departement": 102,
+    "code": "975",
+    "nom": "Saint-Pierre-et-Miquelon"
+  }
+]
