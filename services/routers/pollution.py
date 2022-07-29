@@ -22,16 +22,8 @@ def get_db():
     finally:
         db.close()
 
-"""
-@app.get('/{id_ville}')
-async def read_database(id_ville: str, db: Session = Depends(get_db)):
-     pollution_model = db.query(api_create_models.Pollution).join(api_create_models.Ville).filter(api_create_models.Ville.nom == id_ville).all()
-     if pollution_model is not None:
-         return pollution_model
-     raise HTTPException(status_code=404, detail='Not Found')
-"""
 
-@router.get('/')
+@router.get('/pollution/all')
 async def read_all(db: Session = Depends(get_db)):
      pollution_model = db.query(api_create_models.Pollution).all()
      if pollution_model is not None:
