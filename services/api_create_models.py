@@ -22,7 +22,7 @@ class Ville(Base):
 
 
 class Pollution(Base):
-    __tablename__ = "pollution"
+    __tablename__ = "pollution.py"
     id_pollution = Column(Integer, primary_key= True, index= True )
     aqi = Column(Integer)
     co = Column(Float)

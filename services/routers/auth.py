@@ -1,12 +1,14 @@
 import sys
+
 sys.path.append("..")
 
 from pydantic import BaseModel
 from typing import Optional
-from fastapi import FastAPI, Depends, HTTPException, status, APIRouter
+from fastapi import FastAPI,Depends, HTTPException, status, APIRouter
 from datetime import datetime, timedelta
 from passlib.context import CryptContext
 from api_connect import SessionLocal, engine
+import api_create_models
 from api_create_models import User
 from sqlalchemy.orm import Session
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
@@ -14,10 +16,13 @@ from jose import jwt, JWTError
 
 bcrypt_context = CryptContext(schemes=["bcrypt"], deprecated='auto')
 
+api_create_models.Base.metadata.create_all(bind=engine)
+
 oauth2_bearer = OAuth2PasswordBearer(tokenUrl="token")
 
 SECRET_KEY = "oizejdoùzed9+4z5e+d9zedjzoih"
 ALGO = "HS256"
+
 
 class CreateUser(BaseModel):
     """
@@ -30,7 +35,9 @@ class CreateUser(BaseModel):
     last_name: str
     password: str
 
-app = FastAPI()
+
+router = APIRouter()
+
 
 def get_db():
     try:
@@ -38,7 +45,6 @@ def get_db():
         yield db
     finally:
         db.close()
-
 
 
 def get_hash_password(password):
@@ -72,7 +78,7 @@ def authenticate_user(username: str, password: str, db):
     :param db:
     :return: user si True, else False
     """
-    user = db.query(User).filter(User.username == username).\
+    user = db.query(User).filter(User.username == username). \
         first()
     if not user:
         return False
@@ -82,13 +88,12 @@ def authenticate_user(username: str, password: str, db):
 
 
 def create_access_token(username: str, user_id: int, expires_delta: Optional[timedelta] = None):
-
     encode = {"sub": username, "id": user_id}
     if expires_delta:
         expire = datetime.utcnow() + expires_delta
     else:
         expire = datetime.utcnow() + timedelta(minutes=15)
-    encode.update({"exp" : expire})
+    encode.update({"exp": expire})
     return jwt.encode(encode, SECRET_KEY, algorithm=ALGO)
 
 
@@ -99,12 +104,12 @@ async def get_current_user(token: str = Depends(oauth2_bearer)):
         id_user: int = payload.get("id")
         if username is None or id_user is None:
             raise get_user_exception()
-        return {"username" : username, "id": id_user}
+        return {"username": username, "id": id_user}
     except JWTError:
         raise get_user_exception()
 
 
-@app.post("/create/user")
+@router.post("/create/user")
 async def create_new_user(create_user: CreateUser, db: Session = Depends(get_db)):
     create_user_model = User()
     create_user_model.email = create_user.email
@@ -123,7 +128,7 @@ async def create_new_user(create_user: CreateUser, db: Session = Depends(get_db)
     return create_user_model
 
 
-@app.post("/token")
+@router.post("/token")
 async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db)):
     user = authenticate_user(form_data.username, form_data.password, db)
     if not user:
@@ -132,9 +137,7 @@ async def login_for_access_token(form_data: OAuth2PasswordRequestForm = Depends(
     token = create_access_token(user.username,
                                 user.id_user,
                                 expires_delta=token_expires)
-    return {"token" : token}
-
-
+    return {"token": token}
 
 
 def get_user_exception():
@@ -148,7 +151,7 @@ def get_user_exception():
 
 def token_exception():
     token_exception_response = HTTPException(
-        status_code= status.HTTP_401_UNAUTHORIZED,
+        status_code=status.HTTP_401_UNAUTHORIZED,
         detail="Incorrect username or password",
         headers={"WWW-Authenticate": "Bearer"}
     )

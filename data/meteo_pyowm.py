@@ -96,7 +96,7 @@ class PollutionPyown:
     def _get_pollution_ville(self, ville):
         """
         :param ville:
-        :return l'objet pollution pour la ville:
+        :return l'objet pollution.py pour la ville:
         """
         liste_forecast = []
         pollution_dict = {}
@@ -149,8 +149,8 @@ class PollutionPyown:
         """
         enregistrement des prévisions de la ville en base de données
         :param ville: le nom de la ville
-        :param forecast_dict : le dico de données de pollution
-        :param forecast: les données de pollution
+        :param forecast_dict : le dico de données de pollution.py
+        :param forecast: les données de pollution.py
         :return: rien, alimente la base de données
         """
         if not pollution_data.ville_exists(ville):

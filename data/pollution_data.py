@@ -102,7 +102,7 @@ def ajout_pollution_ville(aqi,
     :param last_update
     """
 
-    sql = """ INSERT INTO pollution ( aqi, co, no, no2, o3, so2, pm2_5, pm10, nh3, day, last_update, id_ville) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);"""
+    sql = """ INSERT INTO pollution.py ( aqi, co, no, no2, o3, so2, pm2_5, pm10, nh3, day, last_update, id_ville) VALUES (%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s);"""
 
     connection = None
     try:
@@ -131,9 +131,9 @@ def ajout_pollution_ville(aqi,
 def get_last_update(nom_ville):
     """
     :param nom_ville:
-    :return: retourne la date de dernière mise à jour d'une ville dans la table pollution
+    :return: retourne la date de dernière mise à jour d'une ville dans la table pollution.py
     """
-    sql = "select last_update from pollution inner join ville on pollution.id_ville = ville.id_ville where ville.nom = '{0}' limit 1;".format(nom_ville)
+    sql = "select last_update from pollution.py inner join ville on pollution.py.id_ville = ville.id_ville where ville.nom = '{0}' limit 1;".format(nom_ville)
 
     connection = None
 
@@ -186,9 +186,9 @@ def delete_prevision_ville(nom_ville):
 
 
 def read_pollution_forecast(ville):
-    sql = "select pollution.day,pollution.aqi, pollution.co, pollution.no, pollution.no2, pollution.o3, " \
-          "pollution. so2, pollution.pm2_5, pollution.pm10, pollution.nh3 from pollution inner join ville " \
-          "on pollution.id_ville = ville.id_ville where ville.nom = '{0}' order by pollution.day;".format(ville)
+    sql = "select pollution.py.day,pollution.py.aqi, pollution.py.co, pollution.py.no, pollution.py.no2, pollution.py.o3, " \
+          "pollution.py. so2, pollution.py.pm2_5, pollution.py.pm10, pollution.py.nh3 from pollution.py inner join ville " \
+          "on pollution.py.id_ville = ville.id_ville where ville.nom = '{0}' order by pollution.py.day;".format(ville)
 
     connection = None
     try:

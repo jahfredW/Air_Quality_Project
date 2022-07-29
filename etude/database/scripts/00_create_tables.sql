@@ -49,7 +49,7 @@ CREATE TABLE public.departement (
 
 );
 
--- object: public.pollution | type: TABLE --
+-- object: public.pollution.py | type: TABLE --
 DROP TABLE IF EXISTS public.pollution CASCADE;
 CREATE TABLE public.pollution (
 	id_pollution smallint NOT NULL GENERATED ALWAYS AS IDENTITY ,
