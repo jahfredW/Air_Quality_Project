@@ -1,1 +1,1 @@
-select * from departement
+select * from ville

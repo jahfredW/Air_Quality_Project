@@ -46,7 +46,7 @@ def get_id_ville(nom_ville: str):
     finally:
         if connection is not None:
             connection.close()
-            print('connection à la BDD fermée')
+
 
 def ville_exists(ville: str):
     sql = "SELECT id_ville from ville where nom='{}'".format(ville)
@@ -147,8 +147,7 @@ def get_last_update(nom_ville):
 
         return row
     except (Exception, psycopg2.DatabaseError) as error:
-        print('Error get_last_update')
-        print(error)
+        print('Error get_last_update : La ville n est pas encore enregistrée')
     finally:
         if connection is not None:
             connection.close()
@@ -161,7 +160,7 @@ def delete_prevision_ville(nom_ville):
     :param nom_ville: nom de la ville
     :return:
     """
-    sql = f"DELETE FROM prevision WHERE id_ville in (select id_ville from ville where nom = '{nom_ville}');"
+    sql = f"DELETE FROM pollution WHERE id_ville in (select id_ville from ville where nom = '{nom_ville}');"
 
     connection = None
     try:
@@ -209,4 +208,29 @@ def read_pollution_forecast(ville):
             connection.close()
 
 
-get_id_ville('Dunkerque')
+def get_all_ville():
+    """
+    :param nom_ville:
+    :return: retourne la date de dernière mise à jour d'une ville dans la table pollution.py
+    """
+    sql = "SELECT nom from ville "
+
+    connection = None
+
+    try:
+        connection = psycopg2.connect(host=HOST, database=DATABASE, user=USER, password=PASSWORD, port=PORT)
+        cursor = connection.cursor()
+        cursor.execute(sql)
+        row = cursor.fetchall()
+        connection.commit()
+        cursor.close()
+
+        return row
+    except (Exception, psycopg2.DatabaseError) as error:
+        print('Error get_last_update')
+        print(error)
+    finally:
+        if connection is not None:
+            connection.close()
+
+

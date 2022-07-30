@@ -1,7 +1,6 @@
 import sys
 
 sys.path.append("..")
-
 from pydantic import BaseModel
 from typing import Optional
 from fastapi import FastAPI,Depends, HTTPException, status, APIRouter
@@ -13,6 +12,7 @@ from api_create_models import User
 from sqlalchemy.orm import Session
 from fastapi.security import OAuth2PasswordRequestForm, OAuth2PasswordBearer
 from jose import jwt, JWTError
+import api_key
 
 bcrypt_context = CryptContext(schemes=["bcrypt"], deprecated='auto')
 
@@ -20,13 +20,12 @@ api_create_models.Base.metadata.create_all(bind=engine)
 
 oauth2_bearer = OAuth2PasswordBearer(tokenUrl="token")
 
-SECRET_KEY = "oizejdoùzed9+4z5e+d9zedjzoih"
-ALGO = "HS256"
+
 
 
 class CreateUser(BaseModel):
     """
-    class simplfié hérite de Basemodel
+    class simplifiée hérite de Basemodel
     permet de définir le model de formulaire basé sur la classe USER
     """
     username: str
@@ -36,7 +35,11 @@ class CreateUser(BaseModel):
     password: str
 
 
-router = APIRouter()
+router = APIRouter(
+    prefix="/auth",
+    tags=["auth"],
+    responses={401: {"user": "Not authorized"}}
+)
 
 
 def get_db():
@@ -94,12 +97,12 @@ def create_access_token(username: str, user_id: int, expires_delta: Optional[tim
     else:
         expire = datetime.utcnow() + timedelta(minutes=15)
     encode.update({"exp": expire})
-    return jwt.encode(encode, SECRET_KEY, algorithm=ALGO)
+    return jwt.encode(encode, api_key.SECRET_KEY, algorithm=api_key.ALGO)
 
 
 async def get_current_user(token: str = Depends(oauth2_bearer)):
     try:
-        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGO])
+        payload = jwt.decode(token, api_key.SECRET_KEY, algorithms=[api_key.ALGO])
         username: str = payload.get("sub")
         id_user: int = payload.get("id")
         if username is None or id_user is None:
@@ -156,3 +159,11 @@ def token_exception():
         headers={"WWW-Authenticate": "Bearer"}
     )
     return token_exception_response
+
+def  time_out_exception():
+    time_out_exception = HTTPException(
+        status_code=status.HTTP_504_GATEWAY_TIMEOUT,
+        detail="Forever is over !!!",
+        headers={"WWW-Authenticate": "Bearer"}
+    )
+    return time_out_exception
