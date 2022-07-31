@@ -1,18 +1,19 @@
 from datetime import date
 
 import psycopg2
+params = {
+    "host" : "localhost",
+    "database" : "test2",
+    "user" : "dev",
+    "password" : "Farte512!",
+    "port" : 5432
+}
 
-HOST = "localhost"
-DATABASE = "test2"
-USER = "dev"
-PASSWORD = "Farte512!"
-PORT = 5432
 
-def connect():
+def get_all_departements():
     try:
-        connection = psycopg2.connect(host=HOST, database=DATABASE, user=USER, password=PASSWORD, port=PORT)
+        connection = psycopg2.connect(**params)
         cursor = connection.cursor()
-        print('Version du serveur PostgreSQL:')
         cursor.execute("SELECT * from departement")
 
         departements = cursor.fetchall()
@@ -26,11 +27,12 @@ def connect():
             connection.close()
             print('connection à la BDD fermée')
 
+
 def get_id_ville(nom_ville: str):
     sql = "select id_ville from ville where nom = '{0}'".format(nom_ville);
 
     try:
-        connection = psycopg2.connect(host=HOST, database=DATABASE, user=USER, password=PASSWORD, port=PORT)
+        connection = psycopg2.connect(**params)
         cursor = connection.cursor()
         cursor.execute(sql)
 
@@ -53,7 +55,7 @@ def ville_exists(ville: str):
 
     connection = None
     try:
-        connection = psycopg2.connect(host=HOST, database=DATABASE, user= USER, password=PASSWORD, port=PORT)
+        connection = psycopg2.connect(**params)
         cursor = connection.cursor()
 
         cursor.execute(sql)
@@ -107,7 +109,7 @@ def ajout_pollution_ville(aqi,
     connection = None
     try:
         # obtention de la connexion à la base de données
-        connection = psycopg2.connect(host=HOST, database=DATABASE, user=USER, password=PASSWORD, port=PORT)
+        connection = psycopg2.connect(**params)
         # create a new cursor
         cursor = connection.cursor()
         record_to_insert = (aqi, co, no,
@@ -138,7 +140,7 @@ def get_last_update(nom_ville):
     connection = None
 
     try:
-        connection = psycopg2.connect(host=HOST, database=DATABASE, user=USER, password=PASSWORD, port=PORT)
+        connection = psycopg2.connect(**params)
         cursor = connection.cursor()
         cursor.execute(sql, nom_ville)
         row = cursor.fetchone()[0]
@@ -165,7 +167,7 @@ def delete_prevision_ville(nom_ville):
     connection = None
     try:
         # obtention de la connexion à la base de données
-        connection = psycopg2.connect(host=HOST, database=DATABASE, user=USER, password=PASSWORD, port=PORT)
+        connection = psycopg2.connect(**params)
         # create a new cursor
         cursor = connection.cursor()
 
@@ -191,7 +193,7 @@ def read_pollution_forecast(ville):
 
     connection = None
     try:
-        connection = psycopg2.connect(host=HOST, database=DATABASE, user=USER, password=PASSWORD, port=PORT)
+        connection = psycopg2.connect(**params)
         cursor = connection.cursor()
         cursor.execute(sql, ville)
         row = cursor.fetchall()
@@ -218,7 +220,7 @@ def get_all_ville():
     connection = None
 
     try:
-        connection = psycopg2.connect(host=HOST, database=DATABASE, user=USER, password=PASSWORD, port=PORT)
+        connection = psycopg2.connect(params)
         cursor = connection.cursor()
         cursor.execute(sql)
         row = cursor.fetchall()
