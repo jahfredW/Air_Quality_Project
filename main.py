@@ -2,9 +2,10 @@ import sys
 import getopt
 from data import meteo_pyowm
 from utils import meteo_utils
+from services.uvicorn_launcher import Launcher
 
 try:
-    opts, argv = getopt.getopt(sys.argv[1:], 'hd:i', ['display=', 'interactive', 'help'])
+    opts, argv = getopt.getopt(sys.argv[1:], 'whd:i', ['web','display=', 'interactive', 'help'])
 
     p = meteo_pyowm.PollutionPyown()
 
@@ -13,6 +14,7 @@ try:
             print(p.get_prevision_pollution(argv))
 
         elif opt in ('-h', '--help'):
+            print("help")
             meteo_utils.usage()
 
         elif opt in ('-i, --interactive'):
@@ -34,8 +36,9 @@ try:
                 for key, value in previsions.items():
                     print(key, value)
 
-
-
+        elif opt in ('-w', '--web'):
+            print('web')
+            l = Launcher()
 
 
 
