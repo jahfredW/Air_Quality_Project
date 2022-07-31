@@ -35,7 +35,7 @@ if __name__ == '__main__':
 
     print("Exécution de : '{0}'".format(SCRIPT_00) + " ...")
 
-    command = "pg_dump.exe -U {0} -d {1} -a > {2}\\dump_{3}.sql".format(USER,DATABASE,SCRIPTS_DIRECTORY,datetime.date.today())
+    command = "pg_dump.exe -U {0} -d {1} -a > {2}\\dump_{3}.txt".format(USER,DATABASE,SCRIPTS_DIRECTORY,datetime.date.today())
     print(command)
     os.system(command)
 
