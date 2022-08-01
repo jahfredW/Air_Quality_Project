@@ -1,6 +1,6 @@
 from sqlalchemy import Boolean, Column, Integer, String, Float, Date, ForeignKey
 from sqlalchemy.orm import relationship
-from api_connect import Base
+from services.api_connect import Base
 
 
 class Departement(Base):

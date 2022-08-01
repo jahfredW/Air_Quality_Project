@@ -35,8 +35,8 @@ if __name__ == '__main__':
 
     print("Exécution de : '{0}'".format(SCRIPT_00) + " ...")
 
-    fichier_dump = input("fichier dump?")
-    command = "psql.exe -U {0} -d {1} -a < {2} ".format(USER,DATABASE, SCRIPTS_DIRECTORY + "/{3}.txt".format(fichier_dump))
+    fichier_dump = input("Nom du fichier dump (sans l'extension svp)?")
+    command = "psql.exe -U {0} -d {1} -a < {2} ".format(USER,DATABASE, SCRIPTS_DIRECTORY + "/{0}.txt".format(fichier_dump))
     print(command)
     os.system(command)
 
