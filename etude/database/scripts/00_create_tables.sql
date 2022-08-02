@@ -53,7 +53,7 @@ CREATE TABLE public.departement (
 DROP TABLE IF EXISTS public.pollution CASCADE;
 CREATE TABLE public.pollution (
 	id_pollution smallint NOT NULL GENERATED ALWAYS AS IDENTITY ,
-	aqi integer NOT NULL,
+	aqi integer ,
 	co decimal(5,2),
 	no decimal(5,2),
 	no2 decimal(5,2),
@@ -100,14 +100,14 @@ ALTER TABLE public.departement OWNER TO dev_role;
 -- ddl-end --
 
 -- object: departement_fk | type: CONSTRAINT --
--- ALTER TABLE public.ville DROP CONSTRAINT IF EXISTS departement_fk CASCADE;
+ALTER TABLE public.ville DROP CONSTRAINT IF EXISTS departement_fk CASCADE;
 ALTER TABLE public.ville ADD CONSTRAINT departement_fk FOREIGN KEY (id_departement)
 REFERENCES public.departement (id_departement) MATCH FULL
 ON DELETE RESTRICT ON UPDATE CASCADE;
 -- ddl-end --
 
 -- object: ville_fk | type: CONSTRAINT --
--- ALTER TABLE public.prevision DROP CONSTRAINT IF EXISTS ville_fk CASCADE;
+ALTER TABLE public.prevision DROP CONSTRAINT IF EXISTS ville_fk CASCADE;
 ALTER TABLE public.prevision ADD CONSTRAINT ville_fk FOREIGN KEY (id_ville)
 REFERENCES public.ville (id_ville) MATCH FULL
 ON DELETE RESTRICT ON UPDATE CASCADE;

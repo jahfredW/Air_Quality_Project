@@ -5,7 +5,7 @@ class Departement:
     # Constructeur
     # -------------------
     def __init__(self):
-        self.nom: str = ""
+        self.nom: str = "nom departement"
         self.code: str = "000"
 
     # -------------------

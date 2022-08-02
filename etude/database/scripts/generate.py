@@ -19,7 +19,7 @@ if __name__ == '__main__':
     PORT = 5432
     USER = "dev"
     PASSWORD = "Farte512!"
-    SCRIPTS_DIRECTORY = "D:\\NEW_DEV\\ressources\\pythonProject\\etude\\database\\scripts\\"
+    SCRIPTS_DIRECTORY = "D:\\PycharmProjects\\pythonProject4\\Air_Quality_Project\\etude\\database\\scripts\\"
     DATABASE = "test2"
     POSTGRESQL_BIN = "D:\\NEW_DEV\\postgreSQL\\bin"
 

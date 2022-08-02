@@ -35,6 +35,7 @@ def get_db():
 async def read_all(db: Session = Depends(get_db)):
      pollution_model = db.query(api_create_models.Pollution).all()
      if pollution_model is not None:
+         print(pollution_model)
          return pollution_model
      else:
         raise HTTPException(status_code=404, detail='Not Found')

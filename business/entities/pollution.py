@@ -18,7 +18,7 @@ class Pollution:
 
     @property
     def aqi(self):
-        return self._api
+        return self._aqi
 
     @aqi.setter
     def aqi(self, value):
