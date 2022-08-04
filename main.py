@@ -7,7 +7,7 @@ from business.components.pollution import Pollution
 from services.uvicorn_launcher import Launcher
 
 try:
-    opts, argv = getopt.getopt(sys.argv[1:], 'ahd:i', ['api','display=', 'interactive', 'help'])
+    opts, argv = getopt.getopt(sys.argv[1:], 'ahd:i', ['api', 'display=', 'interactive', 'help'])
 
 
 

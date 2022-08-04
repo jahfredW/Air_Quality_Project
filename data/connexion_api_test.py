@@ -13,7 +13,7 @@ location = meteo_api_data.geopoints_for('Dunkerque')
 location = location[0]
 print(location.lon)
 print(test_api.weather_manager().one_call(location.lat, location.lon))
-print(test_api.airpollution_manager().air_quality_forecast_at_coords(location.lat, location.lon).)
+print(test_api.airpollution_manager().air_quality_forecast_at_coords(location.lat, location.lon))
 
 
 

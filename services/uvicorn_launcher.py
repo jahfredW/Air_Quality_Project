@@ -13,6 +13,8 @@ class Launcher():
     def _command_launcher(self):
         os.system(self._command)
     # os.system(command)
+
+
 # on se positionne dans le répertoire bin de l'environnement virtuel python pour démarrer
 # le serveur web unicorn
 

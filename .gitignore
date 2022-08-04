@@ -1,3 +1,5 @@
 *.txt
 venv/
 .idea
+/etude/tests/
+/etude/UML/

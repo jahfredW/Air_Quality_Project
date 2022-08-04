@@ -2,6 +2,10 @@ from data.pollution_pyowm import PollutionPyown
 import business.components.pollution_ville
 
 class Pollution:
+    """
+    Dans cette classe, on récupère les données de pollution_ville (classe PollutionVille)
+    Récupération des données contenues dans les objets créés par pollution_ville.
+    """
     def __init__(self):
         self._meteo_pyowm = PollutionPyown()
         self._meteo_villes = []
