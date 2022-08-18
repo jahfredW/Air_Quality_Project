@@ -1,3 +1,6 @@
+import sys
+sys.path.append("..")
+
 import api_create_models
 from api_connect import engine
 from fastapi import FastAPI, Depends

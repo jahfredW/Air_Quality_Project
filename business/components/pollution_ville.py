@@ -46,6 +46,7 @@ class PollutionVille:
         if need_refresh:
             #si oui, on récupère les données via l'api distante
             self._pollution_ville = self._pollution_pyown._get_pollution_ville(self.ville.nom)
+            print(self._pollution_ville)
             #si les données existes, on va créer une série d'objets de type pollution
             if self._pollution_ville is not None:
                 period = 0
@@ -83,9 +84,12 @@ class PollutionVille:
 
     # fonction de récupération, ne sert pas à consulter les données mais à construire les objets
     # Ne sert pas ici
-    def _get_aqi(self, period):
-        prevision = self.pollutions[period]
-        return prevision.aqi
+    def get_aqi(self):
+        aqi_liste = []
+        aqi = self.load_pollution_ville()
+        for key, value in aqi.items():
+            aqi_liste.append(value.aqi)
+        return aqi_liste
 
 
     def load_pollution_ville(self):
@@ -160,7 +164,6 @@ class PollutionVille:
                 return True
             else:
                 return False
-
 
 
 

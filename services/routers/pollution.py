@@ -1,17 +1,18 @@
 import sys
 sys.path.append("..")
-import requests
+
+import traceback as tb
 import api_create_models
 import geopy
 from api_connect import engine, SessionLocal
-from fastapi import FastAPI, Depends, HTTPException, APIRouter
+from fastapi import FastAPI, Depends, HTTPException, APIRouter, Form
 from sqlalchemy.orm import Session
-from fastapi.security import OAuth2PasswordRequestForm
-from .auth import get_current_user, get_user_exception
-from business.components.pollution_ville import PollutionVille
+from fastapi.responses import HTMLResponse
+from presentation.web.controllers.error_controller import ErrorController
+from presentation.web.controllers.index_controller import IndexController
+from presentation.web.controllers.pollution_ville_controller import PollutionVilleController
 import requests
-import pyowm
-from pyowm.utils.config import get_default_config
+
 
 
 router = APIRouter(
@@ -23,8 +24,6 @@ router = APIRouter(
 #api_create_models.Base.metadata.drop_all(bind=engine)
 api_create_models.Base.metadata.create_all(bind=engine)
 
-
-
 def get_db():
     try:
         db = SessionLocal()
@@ -33,6 +32,20 @@ def get_db():
         db.close()
 
 
+
+@router.get("/")
+async def root():
+    try:
+        controller = IndexController()
+        return HTMLResponse(content=controller.index(), status_code=200)
+    except Exception as error:
+        controller = ErrorController()
+        errorMessage = ''.join(tb.format_exception(None, error, error.__traceback__))
+        errorMessage = errorMessage.replace(",", "\n")
+        htmlMessage = controller.error(errorMessage)
+        return HTMLResponse(content=htmlMessage, status_code=500)
+
+"""
 @router.get('/all')
 async def read_all(db: Session = Depends(get_db)):
      pollution_model = db.query(api_create_models.Pollution).all()
@@ -41,24 +54,21 @@ async def read_all(db: Session = Depends(get_db)):
          return pollution_model
      else:
         raise HTTPException(status_code=404, detail='Not Found')
+"""
 
+@router.post("/villes")
+async def read_pollution_ville(ville: str = Form(...)):
+    try:
+        controller = PollutionVilleController()
+        return HTMLResponse(content=controller.read_pollution_ville(ville), status_code=200)
 
-@router.get('/{nom_ville}')
-async def read_all(nom_ville: str, db: Session = Depends(get_db)):
-     pollution_model = db.query(api_create_models.Pollution)\
-         .join(api_create_models.Ville)\
-         .filter(api_create_models.Ville.nom == nom_ville)\
-         .first()
-     if pollution_model is not None:
-         print('lecture bdd pour : {0}'.format(pollution_model))
-         return pollution_model
-     else:
-         loc = geopy.geocoders.Nominatim(user_agent="GetLoc")
-         getLoc = loc.geocode(nom_ville)
-         r = requests.get(f'http://api.openweathermap.org/data/2.5/air_pollution?lat={getLoc.latitude}&lon={getLoc.longitude}&appid=a1f0eace01a7421a3046c32bf90392a5')
-         texte = r.json()
-         return texte
-
+    except Exception as error:
+        print("ici")
+        controller = ErrorController()
+        errorMessage = ''.join(tb.format_exception(None, error, error.__traceback__))
+        errorMessage = errorMessage.replace(",", "\n")
+        htmlMessage = controller.error(errorMessage)
+        return HTMLResponse(content=htmlMessage, status_code=500)
 
 
 

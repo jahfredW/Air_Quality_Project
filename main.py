@@ -7,7 +7,7 @@ from business.components.pollution import Pollution
 from services.uvicorn_launcher import Launcher
 
 try:
-    opts, argv = getopt.getopt(sys.argv[1:], 'ahd:i', ['api', 'display=', 'interactive', 'help'])
+    opts, argv = getopt.getopt(sys.argv[1:], 'ahd:iw', ['api', 'display=', 'interactive', 'help', 'web'])
 
 
 
@@ -39,7 +39,13 @@ try:
 
         elif opt in ('-a', '--api'):
             print('api')
-            l = Launcher()
+            port = 8050
+            l = Launcher(port)
+
+        elif opt in ('-w', '--web'):
+            port = 80
+            if argv != None and argv != "":
+                port = argv
 
 
 
