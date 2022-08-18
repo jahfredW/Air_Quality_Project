@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Formulaire</title>
+</head>
+<body>
+<form action="https://www.google.fr" method="post">
+
+    <div >
+        <fieldset>
+            <legend>Personne: </legend>
+            <label>* Prénom: </label><input type="text" required><br>
+            <label>* Nom: </label><input type="text" maxlength="8" required><br>
+            <label>* Adresse: </label><textarea cols="30" rows="2" required></textarea><br>
+            <label>Email</label><input type="email">
+        </fieldset>
+        <fieldset>
+            <legend>Responsabilité: </legend>
+            <select>
+                <optgroup label="Comptabilité">
+                    <option>Comptable</option>
+                    <option>Directeur financier</option>
+                </optgroup>
+                <optgroup label="Développement">
+                    <option>Dévelopeur</option>
+                    <option>Expert technique</option>
+                    <option>Architecte</option>
+                </optgroup>
+                <optgroup label="Comptabilité">
+                    <option>Comptable</option>
+                    <option>Directeur financier</option>
+                </optgroup>
+            </select>
+        </fieldset>
+        <fieldset>
+            <legend>Rendez-vous: </legend>
+            <label>1 er  rdv: </label><input type="datetime-local"><br>
+            <label>2 ème rdv: </label><input type="datetime-local"><br>
+            <label>3 ème rdv: </label><input type="datetime-local"><br>
+        </fieldset>
+        <fieldset>
+            <legend>Avancement </legend>
+            <label>Progression</label><progress max="1000" value="756"></progress><br>
+            <label>Niveau</label><meter value="34" min="0" max="100"></meter>
+        </fieldset>
+        <br>
+        <input type="reset"><input type="submit">
+    </div>
+</form>
+
+</body>
+</html>
