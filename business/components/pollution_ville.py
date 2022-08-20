@@ -85,11 +85,25 @@ class PollutionVille:
     # fonction de récupération, ne sert pas à consulter les données mais à construire les objets
     # Ne sert pas ici
     def get_aqi(self):
+
         aqi_liste = []
-        aqi = self.load_pollution_ville()
-        for key, value in aqi.items():
+        data = self.load_pollution_ville()
+        for key, value in data.items():
             aqi_liste.append(value.aqi)
         return aqi_liste
+
+
+
+    def get_pm2_5(self):
+        pm2_5_liste = []
+        try:
+            data = self.load_pollution_ville()
+            for key, value in data.items():
+                pm2_5_liste.append(value.pm2_5)
+            return pm2_5_liste
+        except:
+            print("Les données pm2_5 sont indisponibles")
+
 
 
     def load_pollution_ville(self):

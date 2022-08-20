@@ -7,6 +7,8 @@ from fastapi import FastAPI, Depends
 from routers import auth, pollution, villes, departements
 from compagny import compagnyapis, dependencies
 
+
+
 app = FastAPI()
 
 #api_create_models.Base.metadata.drop_all(bind=engine)
@@ -23,7 +25,6 @@ app.include_router(
     dependencies=[Depends(dependencies.get_token_header)],
     responses={418: {"description": "Internal Use Only"}}
 )
-
 
 
 

@@ -10,6 +10,10 @@ class PollutionVilleModel:
         return self._pollution_ville.get_aqi()
 
 
+    def _get_pm2_5(self):
+        return self._pollution_ville.get_pm2_5()
+
+
     def get_aqi_prev(self):
         prev = {}
 
@@ -18,7 +22,20 @@ class PollutionVilleModel:
         prev[MeteoCommon.PREVISION_J_PLUS_2] = self._get_aqi()[MeteoCommon.PREVISION_J_PLUS_2]
         prev[MeteoCommon.PREVISION_J_PLUS_3] = self._get_aqi()[MeteoCommon.PREVISION_J_PLUS_3]
         prev[MeteoCommon.PREVISION_J_PLUS_4] = self._get_aqi()[MeteoCommon.PREVISION_J_PLUS_4]
-        prev[MeteoCommon.PREVISION_J_PLUS_5] = self._get_aqi()[MeteoCommon.PREVISION_J_PLUS_5]
 
         return prev
+
+
+    def get_pm_2_5(self):
+        prev2 = {}
+
+        prev2[MeteoCommon.PREVISION_AUJOURDHUI] = self._get_pm2_5()[MeteoCommon.PREVISION_AUJOURDHUI]
+        prev2[MeteoCommon.PREVISION_J_PLUS_1] = self._get_pm2_5()[MeteoCommon.PREVISION_J_PLUS_1]
+        prev2[MeteoCommon.PREVISION_J_PLUS_2] = self._get_pm2_5()[MeteoCommon.PREVISION_J_PLUS_2]
+        prev2[MeteoCommon.PREVISION_J_PLUS_3] = self._get_pm2_5()[MeteoCommon.PREVISION_J_PLUS_3]
+        prev2[MeteoCommon.PREVISION_J_PLUS_4] = self._get_pm2_5()[MeteoCommon.PREVISION_J_PLUS_4]
+
+
+        return prev2
+
 

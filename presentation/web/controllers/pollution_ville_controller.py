@@ -7,10 +7,15 @@ class PollutionVilleController:
     def __init__(self):
         self._view = PollutionVilleView()
         self._model = None
+        self.commentaire = ""
 
     def read_pollution_ville(self, nom_ville: str) -> str:
         self._model = PollutionVilleModel(nom_ville)
         self._view.nom_ville = nom_ville
-        self._view.previsions_aqi = self._model.get_aqi_prev()
+        self._view._prevision_aqi = self._model.get_aqi_prev()
+        self._view._prevision_pm_2_5 = self._model.get_pm_2_5()
+
 
         return self._view.render()
+
+

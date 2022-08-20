@@ -1,22 +1,15 @@
-
-
-import datetime
 import pyowm
-import requests
 from pyowm.utils.config import get_default_config
-from pyowm.utils import measurables
-from data import pollution_data
-from Air_Quality_Project.utils.meteo_common import MeteoCommon
-
 
 _meteo_already_exists = {}
 _pollution_already_exists = {}
 
+
 class PollutionPyown:
 
-    #------------------------
-    #Constructeur
-    #------------------------
+    # ------------------------
+    # Constructeur
+    # ------------------------
     def __init__(self):
         self._apikey = 'de344c900509e22467e79e19be02d6bb'
         self._pollution_api_initialized = False
@@ -31,13 +24,13 @@ class PollutionPyown:
         :return: l'objet self._pollution_api
         """
         if not self._pollution_api_initialized:
-            #on récupère le dico get_default_config dans la variable config_dict,
+            # on récupère le dico get_default_config dans la variable config_dict,
             config_dict = get_default_config()
-            #modification du config_dict clé langage en fr:
+            # modification du config_dict clé langage en fr:
             config_dict['language'] = 'fr'
-            #création de l'objet _pollution_api
+            # création de l'objet _pollution_api
             self._pollution_api = pyowm.OWM(self._apikey, config_dict)
-            #on passe l'initialisation à True
+            # on passe l'initialisation à True
             self._pollution_api_initialized = True
 
         else:
@@ -65,8 +58,7 @@ class PollutionPyown:
         else:
             raise Exception("Attention, l'API Pollution n'a pas été initialisée")
 
-
-    def _get_meteo_ville(self,ville):
+    def _get_meteo_ville(self, ville):
         meteo_dict = {}
         """
         :param ville:
@@ -89,7 +81,6 @@ class PollutionPyown:
 
         else:
             raise Exception("Attention, l'API Pollution n'a pas été initialisée")
-
 
     def _get_pollution_ville(self, ville):
         """
@@ -117,4 +108,3 @@ class PollutionPyown:
 
         else:
             raise Exception("Attention, l'API Pollution n'a pas été initialisée")
-
