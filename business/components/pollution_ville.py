@@ -16,15 +16,16 @@ class PollutionVille:
     Ici on ne fait que récupérer les données et construire les objets correspondant
 
     """
+
     def __init__(self, nom_ville):
         self.ville = Ville()
         self.ville.nom = nom_ville
-        self._pollution_pyown = PollutionPyown() #classe d'accès aux données en API
-        self._pollution_data = PollutionData() #classe d'acces au données en BDD
+        self._pollution_pyown = PollutionPyown()  # classe d'accès aux données en API
+        self._pollution_data = PollutionData()  # classe d'acces au données en BDD
         self._pollution_ville = None
         self.pollutions = {}
 
-        self._init_meteo() #initialisation des données de la classe avec les infos pollution de la ville
+        self._init_meteo()  # initialisation des données de la classe avec les infos pollution de la ville
 
     @property
     def ville(self):
@@ -40,14 +41,14 @@ class PollutionVille:
 
     # implémentation de la méthode d'initialisation
     def _init_meteo(self):
-        #besoin de refresh ?
+        # besoin de refresh ?
         need_refresh = self._need_refresh()
 
         if need_refresh:
-            #si oui, on récupère les données via l'api distante
+            # si oui, on récupère les données via l'api distante
             self._pollution_ville = self._pollution_pyown._get_pollution_ville(self.ville.nom)
             print(self._pollution_ville)
-            #si les données existes, on va créer une série d'objets de type pollution
+            # si les données existes, on va créer une série d'objets de type pollution
             if self._pollution_ville is not None:
                 period = 0
                 for f in self._pollution_ville:
@@ -64,7 +65,7 @@ class PollutionVille:
                     pollution.pm10 = f.air_quality_data.get('pm10', None)
                     pollution.nh3 = f.air_quality_data.get('nh3', None)
 
-                    #Qu'on stocke dans le dictionnaire self.pollutions en fonction de la période
+                    # Qu'on stocke dans le dictionnaire self.pollutions en fonction de la période
                     self.pollutions[period] = pollution
 
                     period += 1
@@ -77,10 +78,9 @@ class PollutionVille:
                 raise Exception(
                     f"MeteoVille:_init_meteo: les données pour la ville {self.ville.nom} n'ont pas pu être initialisées via la librairie PyOWM.")
                 return None
-        
+
         else:
             self.load_pollution_ville()
-
 
     # fonction de récupération, ne sert pas à consulter les données mais à construire les objets
     # Ne sert pas ici
@@ -92,8 +92,6 @@ class PollutionVille:
             aqi_liste.append(value.aqi)
         return aqi_liste
 
-
-
     def get_pm2_5(self):
         pm2_5_liste = []
         try:
@@ -104,7 +102,25 @@ class PollutionVille:
         except:
             print("Les données pm2_5 sont indisponibles")
 
+    def get_pm10(self):
+        pm10_liste = []
+        try:
+            data = self.load_pollution_ville()
+            for key, value in data.items():
+                pm10_liste.append(value.pm10)
+            return pm10_liste
+        except:
+            print("Les données pm10 sont indisponibles ")
 
+    def get_so2(self):
+        so2_liste = []
+        try:
+            data = self.load_pollution_ville()
+            for key, value in data.items():
+                so2_liste.append(value.so2)
+            return so2_liste
+        except:
+            print("Les données pm10 sont indisponibles ")
 
     def load_pollution_ville(self):
         pollution_ville = self._pollution_data.read_pollution_forecast(self.ville.nom)
@@ -126,13 +142,10 @@ class PollutionVille:
             prev_jour.pm10 = prev[8]
             prev_jour.nh3 = prev[9]
 
-
             self.pollutions[period] = prev_jour
             print(prev)
             period += 1
         return self.pollutions
-
-
 
     def save_pollution_ville_by_date(self):
 
@@ -154,16 +167,14 @@ class PollutionVille:
 
         self._pollution_data.delete_prevision_ville(self.ville.nom)
 
-
-
         print('Ajout des données en BDD:')
         for day, values in forecast_dict.items():
             self._pollution_data.ajout_pollution_ville(values['aqi'],
-                                                 values['co'], values['no'],
-                                                 values['no2'], values['o3'],
-                                                 values['so2'], values['pm2_5'], values['pm10'],
-                                                 values['nh3'], day, datetime.datetime.today(),
-                                                 id_ville)
+                                                       values['co'], values['no'],
+                                                       values['no2'], values['o3'],
+                                                       values['so2'], values['pm2_5'], values['pm10'],
+                                                       values['nh3'], day, datetime.datetime.today(),
+                                                       id_ville)
 
     def _need_refresh(self):
         date_last_update = self._pollution_data.get_last_update(self.ville.nom)
@@ -178,7 +189,3 @@ class PollutionVille:
                 return True
             else:
                 return False
-
-
-
-

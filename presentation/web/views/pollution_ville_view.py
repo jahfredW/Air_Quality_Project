@@ -1,5 +1,6 @@
 import locale
-locale.setlocale(locale.LC_TIME,'')
+
+locale.setlocale(locale.LC_TIME, '')
 
 from datetime import timedelta, date
 
@@ -14,6 +15,7 @@ class PollutionVilleView(IView):
         self._nom_ville = ""
         self._prevision_aqi = []
         self._prevision_pm_2_5 = []
+        self._prevision_pm_10 = []
 
     @property
     def nom_ville(self):
@@ -39,28 +41,40 @@ class PollutionVilleView(IView):
     def prevision_pm_2_5(self, value):
         self._prevision_pm_2_5 = value
 
+    @property
+    def prevision_pm_10(self):
+        return self._prevision_pm_10
+
+    @prevision_pm_10.setter
+    def prevision_pm_10(self, value):
+        self._prevision_pm_10 = value
+
+    @property
+    def prevision_so2(self):
+        return self._prevision_so2
+
+    @prevision_so2.setter
+    def prevision_so2(self, value):
+        self._prevision_so2 = value
+
     def _getDay(self):
-        htmlPrevisionday = f"<td>today</td>"
-        htmlPrevisionday += f"<td>{str((date.today() + timedelta(days=1)).strftime('%A %d'))}</td>"
-        htmlPrevisionday += f"<td>{str((date.today() + timedelta(days=2)).strftime('%A %d'))}</td>"
-        htmlPrevisionday += f"<td>{str((date.today() + timedelta(days=3)).strftime('%A %d'))}</td>"
-        htmlPrevisionday += f"<td>{str((date.today() + timedelta(days=4)).strftime('%A %d'))}</td>"
-        htmlPrevisionday += f"<td>{str((date.today() + timedelta(days=5)).strftime('%A %d'))}</td>"
+        htmlPrevisionday = f"<td>Aujourd'hui</td>"
+        for index in range(1, len(self.prevision_aqi)):
+            htmlPrevisionday += f"<td>{str((date.today() + timedelta(days=index)).strftime('%A %d'))}</td>"
 
         return htmlPrevisionday
 
 
-
-
     def _getHTMLPrevisionsLigne(self, prevision_ligne):
 
-        htmlPrevisionLigne = f"<td>{str(prevision_ligne[MeteoCommon.PREVISION_AUJOURDHUI])}</td>"
-        htmlPrevisionLigne += f"<td>{str(prevision_ligne[MeteoCommon.PREVISION_J_PLUS_1])}</td>"
-        htmlPrevisionLigne += f"<td>{str(prevision_ligne[MeteoCommon.PREVISION_J_PLUS_2])}</td>"
-        htmlPrevisionLigne += f"<td>{str(prevision_ligne[MeteoCommon.PREVISION_J_PLUS_3])}</td>"
-        htmlPrevisionLigne += f"<td>{str(prevision_ligne[MeteoCommon.PREVISION_J_PLUS_4])}</td>"
+        htmlPrevisionLigne = f"<td>{str(prevision_ligne[0])}</td>"
+
+        for index in range(1, len(self.prevision_aqi)):
+            htmlPrevisionLigne += f"<td>{str(prevision_ligne[index])}</td>"
+
 
         return htmlPrevisionLigne
+
 
 
 
@@ -70,12 +84,11 @@ class PollutionVilleView(IView):
         htmlPrevisionTableau += f"<tr><td>jours</td>{self._getDay()}</tr>"
         htmlPrevisionTableau += f"<tr><td>indices</td>{self._getHTMLPrevisionsLigne(self.prevision_aqi)}</tr>"
         htmlPrevisionTableau += f"<tr><td>pm_2_5</td>{self._getHTMLPrevisionsLigne(self.prevision_pm_2_5)}</tr>"
+        htmlPrevisionTableau += f"<tr><td>pm_10</td>{self._getHTMLPrevisionsLigne(self.prevision_pm_10)}</tr>"
+        htmlPrevisionTableau += f"<tr><td><a href="">So2</a></td>{self._getHTMLPrevisionsLigne(self.prevision_so2)}</tr>"
         htmlPrevisionTableau += "</table>"
 
         return htmlPrevisionTableau
-
-
-
 
     def render(self) -> str:
         htmlBuilder = HtmlBuilder()
