@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Application météo</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <script defer src="https://use.fontawesome.com/releases/v6.1.1/js/all.js"></script>
+</head>
+<body>
+<section class="hero  is-fullheight background_hero">
+    <div class="hero-head">
+        <nav class="navbar has-background-link" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="http://localhost:8000/">
+                    <span class="is-uppercase has-text-weight-bold has-text-white">application météo</span>
+                </a>
+
+                <a role="button" class="navbar-burger has-text-white" aria-label="menu" aria-expanded="false"
+                   data-target="navbarMenu">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+
+            </div>
+            <div id="navbarMenu" class="navbar-menu">
+                <div class="navbar-start">
+                    <a class="navbar-item has-text-white">
+                        Accueil
+                    </a>
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link has-text-white">
+                            Plus...
+                        </a>
+                        <div class="navbar-dropdown">
+                            <a class="navbar-item">
+                                Configuration
+                            </a>
+                            <a class="navbar-item">
+                                A propos
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="navbarMenu" class="navbar-menu is-active">
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                        <form action="http://localhost:8000/villes" method="post">
+                            <div class="block pr-6">
+                                <div class="columns is-mobile is-gapless">
+                                    <div class="column is-full">
+                                        <div class="control">
+                                            <input name="ville" class="input" type="text" placeholder="Ville...">
+                                        </div>
+                                    </div>
+                                    <div class="column">
+                                        <div class="control">
+                                            <button class="button is-primary">
+                                            <span class="icon">
+                                              <i class="fas fa-search"></i>
+                                            </span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <div class="hero-body ">
+
+        <div class="container has-text-centered has-text-white">
+            <p class="title has-text-white">
+                Application météo
+            </p>
+            <p class="subtitle has-text-white">
+                design HTML + CSS avec Bulma
+            </p>
+
+
+
+            <nav class="columns is-centered">
+                <div class="column">
+                    <div class="card meteo_card mx-4">
+
+                        <div class="card-header">
+                            <div class="card-header-title">Lundi</div>
+                            <div class="card-header-icon"><i class="fas fa-sun has-text-warning" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="py-6 meteo_card_picture ">
+                                <span class="icon is-large ">
+                                  <i class="fas fa-4x fa-sun has-text-warning"></i>
+                                </span>
+                            <p class="title is-1 has-text-white has-text-centered mt-2">20.7°</p>
+                        </div>
+                        <div class="card-content">
+                            <div class="columns is-mobile is-gapeless">
+                                <div class="column">
+                                    <p>Pluie modérée</p>
+                                </div>
+                                <div class="column">
+                                    <span class="icon-text">
+                                        <div class="columns is-gapless">
+                                            <div class="column">
+                                                <span class="icon">
+                                                    <i class="fas fa-wind"></i>
+                                                </span>
+                                            </div>
+                                            <div class="column">
+                                                <span>15 Km/h</span>
+                                            </div>
+                                        </div>
+                                     </span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="card meteo_card mx-4">
+
+                        <div class="card-header">
+                            <div class="card-header-title">Lundi</div>
+                            <div class="card-header-icon"><i class="fas fa-sun has-text-warning" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="py-6 meteo_card_picture ">
+                                <span class="icon is-large ">
+                                  <i class="fas fa-4x fa-sun has-text-warning"></i>
+                                </span>
+                            <p class="title is-1 has-text-white has-text-centered mt-2">20.7°</p>
+                        </div>
+                        <div class="card-content">
+                            <div class="columns is-mobile is-gapeless">
+                                <div class="column">
+                                    <p>Pluie modérée</p>
+                                </div>
+                                <div class="column">
+                                    <span class="icon-text">
+                                        <div class="columns is-gapless">
+                                            <div class="column">
+                                                <span class="icon">
+                                                    <i class="fas fa-wind"></i>
+                                                </span>
+                                            </div>
+                                            <div class="column">
+                                                <span>15 Km/h</span>
+                                            </div>
+                                        </div>
+                                     </span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="card meteo_card mx-4">
+
+                        <div class="card-header">
+                            <div class="card-header-title">Lundi</div>
+                            <div class="card-header-icon"><i class="fas fa-sun has-text-warning" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="py-6 meteo_card_picture ">
+                                <span class="icon is-large ">
+                                  <i class="fas fa-4x fa-sun has-text-warning"></i>
+                                </span>
+                            <p class="title is-1 has-text-white has-text-centered mt-2">20.7°</p>
+                        </div>
+                        <div class="card-content">
+                            <div class="columns is-mobile is-gapeless">
+                                <div class="column">
+                                    <p>Pluie modérée</p>
+                                </div>
+                                <div class="column">
+                                    <span class="icon-text">
+                                        <div class="columns is-gapless">
+                                            <div class="column">
+                                                <span class="icon">
+                                                    <i class="fas fa-wind"></i>
+                                                </span>
+                                            </div>
+                                            <div class="column">
+                                                <span>15 Km/h</span>
+                                            </div>
+                                        </div>
+                                     </span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="card meteo_card mx-4">
+
+                        <div class="card-header">
+                            <div class="card-header-title">Lundi</div>
+                            <div class="card-header-icon"><i class="fas fa-sun has-text-warning" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="py-6 meteo_card_picture ">
+                                <span class="icon is-large ">
+                                  <i class="fas fa-4x fa-sun has-text-warning"></i>
+                                </span>
+                            <p class="title is-1 has-text-white has-text-centered mt-2">20.7°</p>
+                        </div>
+                        <div class="card-content">
+                            <div class="columns is-mobile is-gapeless">
+                                <div class="column">
+                                    <p>Pluie modérée</p>
+                                </div>
+                                <div class="column">
+                                    <span class="icon-text">
+                                        <div class="columns is-gapless">
+                                            <div class="column">
+                                                <span class="icon">
+                                                    <i class="fas fa-wind"></i>
+                                                </span>
+                                            </div>
+                                            <div class="column">
+                                                <span>15 Km/h</span>
+                                            </div>
+                                        </div>
+                                     </span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="card meteo_card mx-4">
+
+                        <div class="card-header">
+                            <div class="card-header-title">Lundi</div>
+                            <div class="card-header-icon"><i class="fas fa-sun has-text-warning" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="py-6 meteo_card_picture ">
+                                <span class="icon is-large ">
+                                  <i class="fas fa-4x fa-sun has-text-warning"></i>
+                                </span>
+                            <p class="title is-1 has-text-white has-text-centered mt-2">20.7°</p>
+                        </div>
+                        <div class="card-content">
+                            <div class="columns is-mobile is-gapeless">
+                                <div class="column">
+                                    <p>Pluie modérée</p>
+                                </div>
+                                <div class="column">
+                                    <span class="icon-text">
+                                        <div class="columns is-gapless">
+                                            <div class="column">
+                                                <span class="icon">
+                                                    <i class="fas fa-wind"></i>
+                                                </span>
+                                            </div>
+                                            <div class="column">
+                                                <span>15 Km/h</span>
+                                            </div>
+                                        </div>
+                                     </span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <div class="column">
+                    <div class="card meteo_card mx-4">
+
+                        <div class="card-header">
+                            <div class="card-header-title">Lundi</div>
+                            <div class="card-header-icon"><i class="fas fa-sun has-text-warning" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                        <div class="py-6 meteo_card_picture ">
+                                <span class="icon is-large ">
+                                  <i class="fas fa-4x fa-sun has-text-warning"></i>
+                                </span>
+                            <p class="title is-1 has-text-white has-text-centered mt-2">20.7°</p>
+                        </div>
+                        <div class="card-content">
+                            <div class="columns is-mobile is-gapeless">
+                                <div class="column">
+                                    <p>Pluie modérée</p>
+                                </div>
+                                <div class="column">
+                                    <span class="icon-text">
+                                        <div class="columns is-gapless">
+                                            <div class="column">
+                                                <span class="icon">
+                                                    <i class="fas fa-wind"></i>
+                                                </span>
+                                            </div>
+                                            <div class="column">
+                                                <span>15 Km/h</span>
+                                            </div>
+                                        </div>
+                                     </span>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </nav>
+        </div>
+    </div>
+
+    <div class="hero-foot">
+        <div class="container has-text-centered">
+            <p class="footer-text">
+                <a href="https://coder-pour-changer-de-vie.com"
+                >Vivre du Code
+                    <i class="fa fa-heart fa-fw heart"></i>
+                    par Nicolas Georgemel</a
+                >
+            </p>
+        </div>
+    </div>
+</section>
+</body>
+</html>

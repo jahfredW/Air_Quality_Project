@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css">
+    <link rel="stylesheet" href="./css/styles.css">
+    <title>On va courir?</title>
+</head>
+<body>
+    <section class="hero is-fullheight background_hero">
+        <div class="hero-head">
+        <nav class="navbar has-background-link" role="navigation" aria-label="main navigation">
+            <div class="navbar-brand">
+                <a class="navbar-item" href="http://localhost:8050/">
+                    <span class="is-uppercase has-text-weight-bold has-text-white">On va courir ?</span>
+                </a>
+
+                <a role="button" class="navbar-burger has-text-white" aria-label="menu" aria-expanded="false"
+                   data-target="navbarMenu">
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                    <span aria-hidden="true"></span>
+                </a>
+
+            </div>
+            <div id="navbarMenu" class="navbar-menu">
+                <div class="navbar-start">
+                    <a class="navbar-item has-text-white">
+                        Accueil
+                    </a>
+                    <div class="navbar-item has-dropdown is-hoverable">
+                        <a class="navbar-link has-text-white">
+                            Plus...
+                        </a>
+                        <div class="navbar-dropdown">
+                            <a class="navbar-item">
+                                Configuration
+                            </a>
+                            <a class="navbar-item">
+                                A propos
+                            </a>
+                            <a class="navbar-item">
+                                Qui sommes nous?
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="navbarMenu" class="navbar-menu is-active">
+                <div class="navbar-end">
+                    <div class="navbar-item">
+                        <form action="http://localhost:8050/pollution/villes" method ="post">
+                            <div class="block pr-6">
+                                <div class="columns is-mobile is-gapless">
+                                    <div class="column is-full">
+                                        <div class="control">
+                                            <input name="ville" class="input" type="text" placeholder="Ville...">
+                                        </div>
+                                    </div>
+                                    <div class="column">
+                                        <div class="control">
+                                            <button class="button is-primary">
+                                            <span class="icon">
+                                              <i class="fas fa-search">Go !</i>
+                                            </span>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </nav>
+        </div>
+
+        <!-- Main container -->
+        <div class="hero-body">
+            <div class="container">
+
+
+                <div class="container has-text-centered ">
+                    <p class="title has-text-white">On va courir ? </p>
+                </div>
+                <div class="container mt-6">
+                    <div class="tile is-ancestor ">
+                        <div class="tile is-vertical is-8">
+                            <div class="tile">
+                                <div class="tile is-parent is-vertical">
+                                    <article class="tile is-child box">
+                                        <div class="subtitle has-text-centered">
+                                            La pollution ce jour :
+                                        </div>
+                                    <div class="level-item has-text-centered">
+                                        <div>
+                                            <p class="heading">
+                                                Indice
+                                            </p>
+                                            <p class="title">
+                                                9
+                                            </p>
+                                        </div>
+                                    </div>
+
+                                    </article>
+                                    <article class="tile is-child box">
+                                        Commentaire sur le sport
+                                    </article>
+                                </div>
+                                <div class="tile is-parent">
+                                    <article class="tile is-child box">
+                                        Pollution détaillée
+                                    </article>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tile is-parent">
+                            <article class="tile is-child box has-text-danger">
+                                Par heure
+                            </article>
+                        </div>
+                    </div>
+                </div>
+                <div class="tile is-ancestor mt-14">
+                    <div class="tile is-parent">
+                        <div class="tile is-child box has-text-danger">
+                            TEST
+                        </div>
+                    </div>
+                    <div class="tile is-parent">
+                        <div class="tile is-child box">
+                            TEST2
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="hero-foot">
+            <div class="content has-text-centered">
+                <p>
+                    <strong>Fred G. ingeniering</strong>
+                </p>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+

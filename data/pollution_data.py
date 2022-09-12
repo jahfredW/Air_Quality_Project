@@ -33,7 +33,7 @@ class PollutionData():
 
 
     def get_id_ville(self, nom_ville: str):
-        sql = "select id_ville from ville where nom = '{0}'".format(nom_ville);
+        sql = "select id_ville from ville where nom = '{0}'".format(nom_ville)
 
         try:
             connection = psycopg2.connect(**self.params)
@@ -241,3 +241,5 @@ class PollutionData():
                 connection.close()
 
 
+p = PollutionData()
+print(p.get_id_ville('Dunkerque'))

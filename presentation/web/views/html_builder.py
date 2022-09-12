@@ -4,6 +4,7 @@ class HtmlBuilder(IHtmlBuilder):
 
     def __init__(self):
         self._titre = ""
+        self._link = "styles/exempleCss.css"
         self._lang_code = "fr"
         self._encoding = "UTF-8"
         self._html = []
@@ -24,12 +25,16 @@ class HtmlBuilder(IHtmlBuilder):
 
         doctype = "<!DOCTYPE html>"
         htmltag = f"<html lang=\"{self._lang_code}\">"
-        headtag = f"<head><meta charset=\"{self._encoding}\"><title>{self._titre}</title></head>"
+        headtag = f"<head><meta charset=\"{self._encoding}\"><title>{self._titre}</title>"
+        css_link = f"<link href=\"{self._link}\" rel='stylesheet' type='text/css'>"
+        end_head_tag = "</head>"
         bodytag = "<body>"
 
         self._html.append(doctype)
         self._html.append(htmltag)
         self._html.append(headtag)
+        self._html.append(css_link)
+        self._html.append(end_head_tag)
         self._html.append(bodytag)
 
     @property

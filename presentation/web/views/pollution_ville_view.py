@@ -85,7 +85,7 @@ class PollutionVilleView(IView):
         htmlPrevisionTableau += f"<tr><td>indices</td>{self._getHTMLPrevisionsLigne(self.prevision_aqi)}</tr>"
         htmlPrevisionTableau += f"<tr><td>pm_2_5</td>{self._getHTMLPrevisionsLigne(self.prevision_pm_2_5)}</tr>"
         htmlPrevisionTableau += f"<tr><td>pm_10</td>{self._getHTMLPrevisionsLigne(self.prevision_pm_10)}</tr>"
-        htmlPrevisionTableau += f"<tr><td><a href="">So2</a></td>{self._getHTMLPrevisionsLigne(self.prevision_so2)}</tr>"
+        htmlPrevisionTableau += f"<tr><td>So2</td>{self._getHTMLPrevisionsLigne(self.prevision_so2)}</tr>"
         htmlPrevisionTableau += "</table>"
 
         return htmlPrevisionTableau

@@ -67,7 +67,7 @@ class PollutionPyown:
         meteo = self._get_api()
         if meteo is not None:
             meteo_api_data = meteo.city_id_registry()
-            location = meteo_api_data.geopoints_for(ville)
+            location = meteo_api_data.geopoints_for(ville.lower())
             location = location[0]
             meteo_api_data = meteo.weather_manager()
 
@@ -108,3 +108,6 @@ class PollutionPyown:
 
         else:
             raise Exception("Attention, l'API Pollution n'a pas été initialisée")
+
+p = PollutionPyown()
+print(p._get_pollution_ville('Dunkerque'))
