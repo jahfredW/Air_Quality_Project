@@ -7,19 +7,22 @@ from business.components.pollution import Pollution
 from services.uvicorn_launcher import Launcher
 
 try:
+    #méthode getopt ( se référer à la doc pour plus de renseignements )
     opts, argv = getopt.getopt(sys.argv[1:], 'ahd:iw', ['api', 'display=', 'interactive', 'help', 'web'])
 
 
 
     for opt, argv in opts:
+        #mode display ( Brest préconfiguré )
         if opt in ('-d', '--display'):
             p = PollutionVille(argv)
             print(p)
-
+        #mode Help
         elif opt in ('-h', '--help'):
             print("help")
             meteo_utils.usage()
 
+        #configuration en mode interactif
         elif opt in ('-i, --interactive'):
             ville = input('ville? : Commençant par une majuscule + accents \n')
             m = pollution_pyowm.PollutionPyown()
@@ -37,11 +40,15 @@ try:
                 choix = int(input('choix?'))
                 p = PollutionVille(liste_villes[choix])
 
+        #configuration en mode API
         elif opt in ('-a', '--api'):
             print('api')
             port = 8050
-            l = Launcher(port)
+            if argv != None and argv != "":
+                port = argv
+            Launcher(port)
 
+        #pas tout compris
         elif opt in ('-w', '--web'):
             port = 80
             if argv != None and argv != "":

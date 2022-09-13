@@ -7,11 +7,11 @@ from configparser import ConfigParser
 class Configuration(metaclass=Singleton):
 
     def __init__(self):
-        self._config_file_path = "/home/nicolas/PycharmProjects/ProjetMeteo/config.ini"
+        self._config_file_path = "D:\PycharmProjects\pythonProject4\Air_Quality_Project\config.ini"
         self._web_port = 80  # changé dynamiquement à l'exécution car paramètres utilisateur, ici valeur par défaut
         self._web_root_url = "http://localhost"
-        self._web_local_images_directory = "/home/nicolas/PycharmProjects/ProjetMeteo/presentation/web/views/ressources/images/"
-        self._web_local_css_directory = "/home/nicolas/PycharmProjects/ProjetMeteo/presentation/web/views/ressources/css/"
+        self._web_local_images_directory = "D:/PycharmProjects/pythonProject4/Air_Quality_Project/presentation/web/views/ressources/images/"
+        self._web_local_css_directory = "D:/PycharmProjects/pythonProject4/Air_Quality_Project/presentation/web/views/ressources/css"
 
     @property
     def web_port(self):

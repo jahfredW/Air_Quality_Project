@@ -8,6 +8,7 @@ class HtmlBuilder(IHtmlBuilder):
         self._lang_code = "fr"
         self._encoding = "UTF-8"
         self._html = []
+        self._custom_head_tags = ""
         self.reset()
 
     @property
@@ -20,26 +21,42 @@ class HtmlBuilder(IHtmlBuilder):
 
         return "".join(self._html)  # convertit les éléments du tableau en une chaine de caractère
 
+    @property
+    def lang_code(self, value):
+        self._lang_code = value
+
+    @property
+    def custom_head_tags(self, value):
+        self._custom_head_tags = value
+
+
+    def custom_init(self, title, lang_code, encoding, tags ):
+        self._titre = title
+        self._lang_code = lang_code
+        self._encoding = encoding
+        self._html = []
+        self._custom_head_tags = tags
+        self.reset()
+
+
+
+
     def reset(self):
         self._html.clear()
 
         doctype = "<!DOCTYPE html>"
         htmltag = f"<html lang=\"{self._lang_code}\">"
         headtag = f"<head><meta charset=\"{self._encoding}\"><title>{self._titre}</title>"
-        css_link = f"<link href=\"{self._link}\" rel='stylesheet' type='text/css'>"
-        end_head_tag = "</head>"
         bodytag = "<body>"
 
         self._html.append(doctype)
         self._html.append(htmltag)
         self._html.append(headtag)
-        self._html.append(css_link)
-        self._html.append(end_head_tag)
+        if self._custom_head_tags != "":
+            self._html.append(self._custom_head_tags)
         self._html.append(bodytag)
 
-    @property
-    def lang_code(self, value):
-        self._lang_code = value
+
 
     def ajouter_paragraphe(self, texte: str):
         self._html.append(f"<p>{texte}</p>")

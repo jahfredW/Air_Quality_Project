@@ -32,19 +32,6 @@ def get_db():
         db.close()
 
 
-
-@router.get("/")
-async def root():
-    try:
-        controller = IndexController()
-        return HTMLResponse(content=controller.index(), status_code=200)
-    except Exception as error:
-        controller = ErrorController()
-        errorMessage = ''.join(tb.format_exception(None, error, error.__traceback__))
-        errorMessage = errorMessage.replace(",", "\n")
-        htmlMessage = controller.error(errorMessage)
-        return HTMLResponse(content=htmlMessage, status_code=500)
-
 """
 @router.get('/all')
 async def read_all(db: Session = Depends(get_db)):

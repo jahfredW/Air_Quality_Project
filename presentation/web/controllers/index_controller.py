@@ -1,5 +1,5 @@
 from presentation.web.views.index_view import IndexView
-
+from presentation.web.views.index_bulma_view import IndexBulmaView
 
 class IndexController:
 

@@ -3,6 +3,12 @@ import os
 
 class Launcher():
     def __init__(self, port):
+        """
+        Crée un configuration de base pour uvicorn
+        utilisation du module os
+        :param port: port écouté
+        :return : rien du tout
+        """
 
         os.chdir("D:\PycharmProjects\pythonProject4\Air_Quality_Project\services")
         self._project_directory = os.getcwd()

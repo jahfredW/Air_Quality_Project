@@ -75,7 +75,7 @@ class LayoutHelper:
 
     @staticmethod
     def get_header_tags() -> str:
-        header_tags = f"<link rel=\"stylesheet\" href=\"{Configuration().get_instance().web_url_css_directory}/styles.css\">"
+        header_tags = f"<link rel=\"stylesheet\" href=\"{Configuration().get_instance().web_url_css_directory}\styles.css\">"
         header_tags += "<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css\">"
         header_tags += "<script defer src=\"https://use.fontawesome.com/releases/v6.1.1/js/all.js\"></script>"
 
