@@ -29,4 +29,4 @@ class Launcher():
 
 
 # on se positionne dans le répertoire bin de l'environnement virtuel python pour démarrer
-# le serveur web unicor
+# le serveur web unicorn

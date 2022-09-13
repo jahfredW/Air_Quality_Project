@@ -69,8 +69,8 @@ class PollutionVille:
                     self.pollutions[period] = pollution
 
                     period += 1
-                    print(pollution.ville, pollution.day, pollution.pm2_5, pollution.pm10)
-                    print(len(self._pollution_ville))
+                    #print(pollution.ville, pollution.day, pollution.pm2_5, pollution.pm10)
+                    #print(len(self._pollution_ville))
                 # On sauvegarde les données brut dans la base de données
                 self.save_pollution_ville_by_date()
 
@@ -145,6 +145,7 @@ class PollutionVille:
             self.pollutions[period] = prev_jour
             print(prev)
             period += 1
+
         return self.pollutions
 
     def save_pollution_ville_by_date(self):
@@ -189,3 +190,7 @@ class PollutionVille:
                 return True
             else:
                 return False
+
+
+p = PollutionVille('Dunkerque')
+p.load_pollution_ville()

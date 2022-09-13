@@ -11,6 +11,7 @@ from fastapi.responses import HTMLResponse
 from presentation.web.controllers.error_controller import ErrorController
 from presentation.web.controllers.index_controller import IndexController
 from presentation.web.controllers.pollution_ville_controller import PollutionVilleController
+from presentation.web.controllers.pollution_ville_bulma_controller import PollutionVilleBulmaController
 import requests
 
 
@@ -46,7 +47,7 @@ async def read_all(db: Session = Depends(get_db)):
 @router.post("/villes")
 async def read_pollution_ville(ville: str = Form(...)):
     try:
-        controller = PollutionVilleController()
+        controller = PollutionVilleBulmaController()
         return HTMLResponse(content=controller.read_pollution_ville(ville), status_code=200)
 
     except Exception as error:

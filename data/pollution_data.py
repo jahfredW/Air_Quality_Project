@@ -240,6 +240,3 @@ class PollutionData():
             if connection is not None:
                 connection.close()
 
-
-p = PollutionData()
-print(p.get_id_ville('Dunkerque'))

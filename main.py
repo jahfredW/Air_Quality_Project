@@ -42,7 +42,6 @@ try:
 
         #configuration en mode API
         elif opt in ('-a', '--api'):
-            print('api')
             port = 8050
             if argv != None and argv != "":
                 port = argv

@@ -9,7 +9,7 @@ class LayoutHelper:
         items.append("<div class=\"hero-head\">")
         items.append("<nav class=\"navbar has-background-link\" role=\"navigation\" aria-label=\"main navigation\">")
         items.append("<div class=\"navbar-brand\">")
-        items.append("<a class=\"navbar-item\" href=\"http://localhost:8050/\">")
+        items.append("<a class=\"navbar-item\" href=\"http://127.0.0.1:8050/\">")
         items.append("<span class=\"is-uppercase has-text-weight-bold has-text-white\">On va courir ? </span>")
         items.append("</a>")
         items.append("<a role=\"button\" class=\"navbar-burger has-text-white\" aria-label=\"menu\" aria-expanded=\"false\"")
@@ -45,7 +45,7 @@ class LayoutHelper:
         items.append("<div id=\"navbarMenu\" class=\"navbar-menu is-active\">")
         items.append("<div class=\"navbar-end\">")
         items.append("<div class=\"navbar-item\">")
-        items.append("<form action=\"http://localhost:8050/pollution/villes\" method=\"post\">")
+        items.append("<form action=\"http://127.0.0.1:8050/pollution/villes\" method=\"post\">")
         items.append("<div class=\"block pr-6\">")
         items.append("<div class=\"columns is-mobile is-gapless\">")
         items.append("<div class=\"column is-full\">")
@@ -94,7 +94,7 @@ class LayoutHelper:
 
         items = []
         items.append("<div class=\"hero-foot\">")
-        items.append("<div class=\"container has-text-centered\">")
+        items.append("<div class=\"container has-text-right\">")
         items.append("<p class=\"footer-text has-text-white\">")
         items.append("<strong>Fred G. ingeniering</strong>")
         items.append("</p>")

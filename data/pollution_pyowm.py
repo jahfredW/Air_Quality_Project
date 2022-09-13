@@ -108,6 +108,3 @@ class PollutionPyown:
 
         else:
             raise Exception("Attention, l'API Pollution n'a pas été initialisée")
-
-p = PollutionPyown()
-print(p._get_pollution_ville('Dunkerque'))

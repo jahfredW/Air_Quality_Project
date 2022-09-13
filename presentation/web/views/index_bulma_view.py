@@ -12,8 +12,8 @@ class IndexBulmaView(IView):
 
         htmlBuilder.ajouter_html("<div class =\"hero-body\">")
         htmlBuilder.ajouter_html("<div class=\"container has-text-centered has-text-black\">")
-        htmlBuilder.ajouter_html("<p class=\"title has-text-black\">Et si on allait courir ?</p>")
-        htmlBuilder.ajouter_html("<p class=\"subtitle has-text-black\">Recherchez votre ville pour connaitre les données pollution</p>")
+        htmlBuilder.ajouter_html("<p class=\"title has-text-white \">Et si on allait courir ?</p>")
+        htmlBuilder.ajouter_html("<p class=\"subtitle has-text-black\">Recherchez votre ville pour analyse de l'air</p>")
         htmlBuilder.ajouter_html("</div>")
         htmlBuilder.ajouter_html("</div>")
 
