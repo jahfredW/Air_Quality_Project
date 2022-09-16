@@ -13,7 +13,7 @@ class Configuration(metaclass=Singleton):
         self._web_root_url = "http://localhost" #adresse du serveur
         self._web_local_images_directory = "D:/PycharmProjects/pythonProject4/Air_Quality_Project/presentation/web/views/ressources/images/"
         self._web_local_css_directory = "D:/PycharmProjects/pythonProject4/Air_Quality_Project/presentation/web/views/ressources/css"
-        self._web_local_scripts_directory = "D:/PycharmProjects/pythonProject4/Air_Quality_Project/presentation/web/views/ressources/scripts/"
+        self._web_local_scripts_directory = "/PycharmProjects/pythonProject4/Air_Quality_Project/presentation/web/views/ressources/scripts"
 
     @property
     def web_port(self):

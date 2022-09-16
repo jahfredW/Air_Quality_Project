@@ -22,7 +22,7 @@ class HtmlBuilder(IHtmlBuilder):
         for script in self._end_scripts:
             self._html.append(script)"""
 
-        self._html.append("<script type='text/javascript' src='./scripts/index.js'></script>")
+        self._html.append("<script type='text/javascript' src='/scripts/index.js'></script>")
         self._html.append(endbodytag)
         self._html.append(endhtmltag)
 
