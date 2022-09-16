@@ -8,10 +8,12 @@ from api_connect import engine, SessionLocal
 from fastapi import FastAPI, Depends, HTTPException, APIRouter, Form
 from sqlalchemy.orm import Session
 from fastapi.responses import HTMLResponse
+from fastapi.staticfiles import StaticFiles
 from presentation.web.controllers.error_controller import ErrorController
 from presentation.web.controllers.index_controller import IndexController
 from presentation.web.controllers.pollution_ville_controller import PollutionVilleController
 from presentation.web.controllers.pollution_ville_bulma_controller import PollutionVilleBulmaController
+from utils.configuration import Configuration
 import requests
 
 
@@ -24,6 +26,7 @@ router = APIRouter(
 
 #api_create_models.Base.metadata.drop_all(bind=engine)
 api_create_models.Base.metadata.create_all(bind=engine)
+
 
 def get_db():
     try:
@@ -51,7 +54,6 @@ async def read_pollution_ville(ville: str = Form(...)):
         return HTMLResponse(content=controller.read_pollution_ville(ville), status_code=200)
 
     except Exception as error:
-        print("ici")
         controller = ErrorController()
         errorMessage = ''.join(tb.format_exception(None, error, error.__traceback__))
         errorMessage = errorMessage.replace(",", "\n")

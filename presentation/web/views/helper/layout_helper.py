@@ -9,7 +9,7 @@ class LayoutHelper:
         items.append("<div class=\"hero-head\">")
         items.append("<nav class=\"navbar has-background-link\" role=\"navigation\" aria-label=\"main navigation\">")
         items.append("<div class=\"navbar-brand\">")
-        items.append("<a class=\"navbar-item\" href=\"http://127.0.0.1:8050/\">")
+        items.append("<a class=\"navbar-item\" href=\"http://127.0.0.1:8000/\">")
         items.append("<span class=\"is-uppercase has-text-weight-bold has-text-white\">On va courir ? </span>")
         items.append("</a>")
         items.append("<a role=\"button\" class=\"navbar-burger has-text-white\" aria-label=\"menu\" aria-expanded=\"false\"")
@@ -45,21 +45,22 @@ class LayoutHelper:
         items.append("<div id=\"navbarMenu\" class=\"navbar-menu is-active\">")
         items.append("<div class=\"navbar-end\">")
         items.append("<div class=\"navbar-item\">")
-        items.append("<form action=\"http://127.0.0.1:8050/pollution/villes\" method=\"post\">")
+        items.append("<form action=\"http://127.0.0.1:8000/villes\" method=\"post\">")
         items.append("<div class=\"block pr-6\">")
         items.append("<div class=\"columns is-mobile is-gapless\">")
         items.append("<div class=\"column is-full\">")
         items.append("<div class=\"control\">")
-        items.append("<input name=\"ville\" class=\"input\" type=\"text\" placeholder=\"Ville...\">")
+        items.append("<input pattern=\"^[A-Z][a-z]*$\" id=\"ville_input\" name=\"ville\" class=\"input is-loading\" type=\"text\" placeholder=\"Ville (1ere Lettre en MAJUSCULE)\">")
         items.append("</div>")
         items.append("</div>")
         items.append("<div class=\"column\">")
         items.append("<div class=\"control\">")
-        items.append("<button class=\"button is-primary\">")
+        items.append("<button id=\"button_primary\" class=\"button is-primary\">")
         items.append("<span class=\"icon\">")
         items.append("<i class=\"fas fa-search\"></i>")
         items.append("</span>")
         items.append("</button>")
+        items.append("<div class=\"result\" id=\"code-validation\"></div>")
         items.append("</div>")
         items.append("</div>")
         items.append("</div>")
@@ -78,6 +79,7 @@ class LayoutHelper:
         header_tags = f"<link rel=\"stylesheet\" href=\"{Configuration().get_instance().web_url_css_directory}\styles.css\">"
         header_tags += "<link rel=\"stylesheet\" href=\"https://cdn.jsdelivr.net/npm/bulma@0.9.4/css/bulma.min.css\">"
         header_tags += "<script defer src=\"https://use.fontawesome.com/releases/v6.1.1/js/all.js\"></script>"
+        header_tags += "<script src=\"https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js\"></script>"
 
         return header_tags
 
@@ -94,9 +96,11 @@ class LayoutHelper:
 
         items = []
         items.append("<div class=\"hero-foot\">")
-        items.append("<div class=\"container has-text-right\">")
+        items.append("<div class=\"container has-text-centered\">")
         items.append("<p class=\"footer-text has-text-white\">")
-        items.append("<strong>Fred G. ingeniering</strong>")
+        items.append("<span><strong>Fred G. ingeniering</strong><span>")
+        items.append("<span id=\"version\"></span>")
+        items.append("<span id=\"environment\"></span>")
         items.append("</p>")
         items.append("</div>")
         items.append("</div>")

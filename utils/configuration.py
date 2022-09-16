@@ -7,11 +7,13 @@ from configparser import ConfigParser
 class Configuration(metaclass=Singleton):
 
     def __init__(self):
+        # chemin vers le fichier config.ini
         self._config_file_path = "D:\PycharmProjects\pythonProject4\Air_Quality_Project\config.ini"
         self._web_port = 80  # changé dynamiquement à l'exécution car paramètres utilisateur, ici valeur par défaut
-        self._web_root_url = "http://localhost"
+        self._web_root_url = "http://localhost" #adresse du serveur
         self._web_local_images_directory = "D:/PycharmProjects/pythonProject4/Air_Quality_Project/presentation/web/views/ressources/images/"
         self._web_local_css_directory = "D:/PycharmProjects/pythonProject4/Air_Quality_Project/presentation/web/views/ressources/css"
+        self._web_local_scripts_directory = "D:/PycharmProjects/pythonProject4/Air_Quality_Project/presentation/web/views/ressources/scripts/"
 
     @property
     def web_port(self):
@@ -60,6 +62,7 @@ class Configuration(metaclass=Singleton):
         config_object["WEB_PORT"] = {
             "port": str(value)
         }
+
         with open(self._config_file_path, 'w') as conf:
             config_object.write(conf)
 
@@ -76,6 +79,10 @@ class Configuration(metaclass=Singleton):
         return self._web_local_css_directory
 
     @property
+    def web_local_scripts_directory(self):
+        return self._web_local_scripts_directory
+
+    @property
     def web_url_images_directory(self):
         return f"{self.web_url}/images"
 
@@ -83,5 +90,43 @@ class Configuration(metaclass=Singleton):
     def web_url_css_directory(self):
         return f"{self.web_url}/css"
 
+    @property
+    def web_url_js_directory(self):
+        return f"{self.web_url}/js"
+
+    @property
+    def api_port(self):
+        config_object = ConfigParser()
+        config_object.read(self._config_file_path)
+        api_port_config_section = config_object["API_PORT"]
+        return api_port_config_section["port"]
+
+    @api_port.setter
+    def api_port(self, value):
+        print(f"Configuration : définition du port pour le serveur API à {str(value)}")
+        self._web_port = value
+
+        config_object = ConfigParser()
+        config_object.read(self._config_file_path)
+        config_object.set("API_PORT", "port", str(value))
+        with open(self._config_file_path, 'w+') as conf:
+            config_object.write(conf)
+
+
+    @property
+    def version(self):
+        config_object = ConfigParser()
+        config_object.read(self._config_file_path)
+        config_section = config_object["ENVIRONMENT"]
+        return config_section["version"]
+
+    @property
+    def target(self):
+        config_object = ConfigParser()
+        config_object.read(self._config_file_path)
+        config_section = config_object["ENVIRONMENT"]
+        return config_section["target"]
+
     def get_instance(self):
         return self
+

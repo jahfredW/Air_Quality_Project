@@ -152,4 +152,5 @@ class PollutionVilleBulmaView(IView):
         htmlBuilder.ajouter_html("</div>")
         htmlBuilder.ajouter_html(LayoutHelper.get_hero_footer())
         htmlBuilder.ajouter_html(LayoutHelper.get_hero_end())
+        #htmlBuilder.ajouter_js_avant_body("<script type='text/javascript src='script/meteo.js'></script>")
         return htmlBuilder.HTML

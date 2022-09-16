@@ -4,7 +4,8 @@ from data import pollution_pyowm
 from utils import meteo_utils
 from business.components.pollution_ville import PollutionVille
 from business.components.pollution import Pollution
-from services.uvicorn_launcher import Launcher
+from services.uvicorn_launcher import Launcher, Api_launcher
+from utils.configuration import Configuration
 
 try:
     #méthode getopt ( se référer à la doc pour plus de renseignements )
@@ -41,17 +42,20 @@ try:
                 p = PollutionVille(liste_villes[choix])
 
         #configuration en mode API
-        elif opt in ('-a', '--api'):
-            port = 8050
+        elif opt in ('-w', '--web'):
+            port = 8000
             if argv != None and argv != "":
                 port = argv
             Launcher(port)
 
         #pas tout compris
-        elif opt in ('-w', '--web'):
-            port = 80
+        elif opt in ('-a', '--api'):
+            port = 8001
             if argv != None and argv != "":
                 port = argv
+
+            Configuration().get_instance().api_port = str(port)
+            Api_launcher(port)
 
 
 

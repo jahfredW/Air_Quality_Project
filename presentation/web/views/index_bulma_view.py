@@ -6,7 +6,7 @@ class IndexBulmaView(IView):
     def render(self) -> str:
         htmlBuilder = HtmlBuilder()
 
-        htmlBuilder.custom_init("On va courir?", "fr", "UTF-8", LayoutHelper.get_header_tags())
+        htmlBuilder.custom_init("On va pas courir?", "fr", "UTF-8", LayoutHelper.get_header_tags())
         htmlBuilder.ajouter_html(LayoutHelper.get_hero_start())
         htmlBuilder.ajouter_html(LayoutHelper.get_hero_head())
 

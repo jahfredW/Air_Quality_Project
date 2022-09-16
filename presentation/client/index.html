@@ -46,7 +46,7 @@
                             </div>
                         </div>
                 </div>
-                <div id="navbarMenu" class="navbar-menu is-active">
+                <div id="navbarMenu2" class="navbar-menu is-active">
                     <div class="navbar-end">
                         <div class="navbar-item">
                             <form action="http://localhost:8050/pollution/villes" method ="post">
@@ -54,16 +54,17 @@
                                     <div class="columns is-mobile is-gapless">
                                         <div class="column is-full">
                                             <div class="control">
-                                                <input name="ville" class="input" type="text" placeholder="Ville...">
+                                                <label for="ville_input"></label><input id="ville_input" name="ville" class="input" type="text" placeholder="Ville...">
                                             </div>
                                         </div>
                                         <div class="column">
                                             <div class="control">
-                                                <button class="button is-primary">
+                                                <button id="button_primary" class="button is-primary">
                                                 <span class="icon">
                                                   <i class="fas fa-search">Go !</i>
                                                 </span>
                                                 </button>
+                                                <div class="result" id="code-validation"></div>
                                             </div>
                                         </div>
                                     </div>
@@ -127,12 +128,15 @@
         </div>
         <div class="hero-foot">
             <div class="content has-text-centered">
-                <p>
-                    <strong>Fred G. ingeniering</strong>
+                <p class="footer-text">
+                    <span><strong>Fred G. ingeniering</strong></span>
+                    <span id="version"></span>
+                    <span id="environment"></span>
                 </p>
             </div>
         </div>
     </section>
+    <script src="./scripts/index.js" type="text/javascript"></script>
 </body>
 </html>
 
