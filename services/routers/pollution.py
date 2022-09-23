@@ -1,4 +1,8 @@
+import json
 import sys
+
+from business.components.pollution import Pollution
+
 sys.path.append("..")
 
 import traceback as tb
@@ -28,6 +32,9 @@ router = APIRouter(
 
 #api_create_models.Base.metadata.drop_all(bind=engine)
 api_create_models.Base.metadata.create_all(bind=engine)
+
+
+
 
 
 def get_db():
@@ -62,7 +69,41 @@ async def read_pollution_ville(ville: str = Form(...)):
         htmlMessage = controller.error(errorMessage)
         return HTMLResponse(content=htmlMessage, status_code=500)
 
+@router.get("/{villes}/aqi")
+async def read_pollution_ville(villes):
 
+    try:
+        pollution = Pollution(villes)
+        response = {
+            "villes": villes,
+            "indice": pollution.get_aqi()[0]
+        }
+        return response
+
+    except Exception as error:
+        controller = ErrorController()
+        errorMessage = ''.join(tb.format_exception(None, error, error.__traceback__))
+        errorMessage = errorMessage.replace(",", "\n")
+        htmlMessage = controller.error(errorMessage)
+        return HTMLResponse(content=htmlMessage, status_code=500)
+
+@router.get("/{villes}/")
+async def read_pollution_ville(villes):
+
+    try:
+        pollution = Pollution(villes)
+        response = {"datas": {
+            "villes": villes,
+            "datas": pollution.get_pollution_ville()
+        }}
+        return response
+
+    except Exception as error:
+        controller = ErrorController()
+        errorMessage = ''.join(tb.format_exception(None, error, error.__traceback__))
+        errorMessage = errorMessage.replace(",", "\n")
+        htmlMessage = controller.error(errorMessage)
+        return HTMLResponse(content=htmlMessage, status_code=500)
 
 
 

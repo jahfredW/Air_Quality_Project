@@ -13,3 +13,5 @@ class MeteoCommon:
     PREVISION_J_PLUS_5 = 5
     PREVISION_J_PLUS_6 = 6
     PREVISION_J_PLUS_7 = 7
+
+

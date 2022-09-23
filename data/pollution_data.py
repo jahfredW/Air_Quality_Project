@@ -6,11 +6,11 @@ class PollutionData():
     def __init__(self):
 
         self.params = {
-            "host" : "localhost",
-            "database" : "test2",
-            "user" : "dev",
-            "password" : "Farte512!",
-            "port" : 5432
+            "host": "localhost",
+            "database": "test2",
+            "user": "dev",
+            "password": "Farte512!",
+            "port": 5432
         }
 
 

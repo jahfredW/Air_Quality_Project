@@ -26,12 +26,6 @@ app.mount("/css", StaticFiles(directory=Configuration().get_instance().web_local
 app.mount("/scripts", StaticFiles(directory=Configuration().get_instance().web_local_scripts_directory), name="scripts")
 
 
-router = APIRouter(
-    prefix="/pollution",
-    tags=["pollution"],
-    responses={404: {"description": "Not found"}}
-)
-
 app.include_router(pollution.router)
 
 """
@@ -60,6 +54,7 @@ async def root():
         htmlMessage = controller.error(errorMessage)
         return HTMLResponse(content=htmlMessage, status_code=500)
 
+
 """
 @app.post("/villes")
 async def read_pollution_ville(ville: str = Form(...)):
@@ -75,15 +70,3 @@ async def read_pollution_ville(ville: str = Form(...)):
         return HTMLResponse(content=htmlMessage, status_code=500)
 """
 
-@router.post("/villes")
-async def read_pollution_ville(ville: str = Form(...)):
-    try:
-        controller = PollutionVilleBulmaController()
-        return HTMLResponse(content=controller.read_pollution_ville(ville), status_code=200)
-
-    except Exception as error:
-        controller = ErrorController()
-        errorMessage = ''.join(tb.format_exception(None, error, error.__traceback__))
-        errorMessage = errorMessage.replace(",", "\n")
-        htmlMessage = controller.error(errorMessage)
-        return HTMLResponse(content=htmlMessage, status_code=500)

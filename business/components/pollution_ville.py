@@ -47,7 +47,6 @@ class PollutionVille:
         if need_refresh:
             # si oui, on récupère les données via l'api distante
             self._pollution_ville = self._pollution_pyown._get_pollution_ville(self.ville.nom)
-            print(self._pollution_ville)
             # si les données existes, on va créer une série d'objets de type pollution
             if self._pollution_ville is not None:
                 period = 0
@@ -143,7 +142,6 @@ class PollutionVille:
             prev_jour.nh3 = prev[9]
 
             self.pollutions[period] = prev_jour
-            print(prev)
             period += 1
 
         return self.pollutions
@@ -192,5 +190,3 @@ class PollutionVille:
                 return False
 
 
-p = PollutionVille('Dunkerque')
-p.load_pollution_ville()

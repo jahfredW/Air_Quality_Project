@@ -1,0 +1,143 @@
+<template>
+   <div class="card meteo_card mx-4">
+        <div class="card-header">
+            <div class="card-header-title">{{ this.dayFromPeriod }}</div>
+            <div class="card-header-icon">
+                <font-awesome-icon icon="fas fa-sun" class="has-text-warning" ></font-awesome-icon>
+            </div>
+        </div>
+        <div class="py-6 meteo_card_picture">
+            <div class="has-text-centered">
+                <v-img v-if="this.pollutionStatus === this.STATUT_API_BON" :src="logoGood" class="fa-4x" contain height="200" />
+                <v-img v-else-if="this.pollutionStatus === this.STATUT_API_CORRECT" :src="logoCorrect" class="fa-4x" contain height="200"/>
+                <v-img v-else-if="this.pollutionStatus === this.STATUT_API_MEDIOCRE" :src="logoMediocre" class="fa-4x" contain height="200"/>
+                <v-img v-else-if="this.pollutionStatus === this.STATUT_API_DEGRADE" :src="logoDegrade" class="fa-4x" contain height="200" />
+                <v-img v-else-if="this.pollutionStatus === this.STATUT_API_MAUVAIS" :src="logoMauvais" class="fa-4x" contain height="200" />
+                <font-awesome-icon v-else icon="fas fa-circle-question" class="fa-4x has-text-warning" />
+            </div>
+            <p class="title is-1  has-text-centered mt-2">{{ this.indice }}</p>
+        </div>
+        <div class="card-content">
+            <div class="columns is-mobile is-gapless">
+                <div class="column">
+                    <p>{{ this.pollutionStatus}}</p>
+                </div>  
+                <div class="column">
+                    <span class="icon-text">
+                        <div class="columns is-gapless">
+                            <div class="column">
+                                <font-awesome-icon icon="fa-solid fa-meteor"></font-awesome-icon>
+                            </div>
+                           
+                        </div>
+                    </span>
+                </div>              
+            </div>
+        </div>
+    </div> 
+</template>
+
+<script>
+    import logoGood from '../assets/good.svg'
+    import logoCorrect from '../assets/correct.svg'
+    import logoMediocre from '../assets/mediocre.svg'
+    import logoDegrade from '../assets/degrade.svg'
+    import logoMauvais from '../assets/mauvais.svg'
+
+
+    export default {
+
+        data: () => ({
+            STATUT_API_BON : "bon",
+            STATUT_API_CORRECT: "correct",
+            STATUT_API_MEDIOCRE: "médiocre",
+            STATUT_API_DEGRADE: "degrade",
+            STATUT_API_MAUVAIS: "mauvais",
+
+            INDICE_BON : 1,
+            INDICE_CORRECT: 2,
+            INDICE_MEDIOCRE: 3,
+            INDICE_DEGRADE: 4,
+            INDICE_MAUVAIS: 5,
+
+        
+         
+            logoGood,
+            logoCorrect,
+            logoMediocre,
+            logoDegrade,
+            logoMauvais,
+        
+        }
+        ),
+
+        props : {
+            
+        indice: Number,
+        period: Number,
+        pollutionStatus: String,
+      
+    },
+
+        computed: {
+            dayFromPeriod() {
+                
+                if (this.period === -1) return "jour non défini";
+                if (this.period < -1 || this.period > 7) return "Période Incorrecte";
+
+                const today = new Date();
+                const dateFromPeriod = new Date();
+                dateFromPeriod.setDate(today.getDate() + this.period);
+
+                let weekDays = [
+                    "Dimanche", "Lundi", "Mardi", "Mercredi", "Jeudi",
+                    "Vendredi", "Samedi", 
+                ];
+
+                return weekDays[dateFromPeriod.getDay()];
+            },
+            /*
+            indiceCalcul() {
+                switch(this.pollutionStatus) {
+                    case "bon": 
+                        this.indice = 1;
+                        break;
+
+                    case "correct": 
+                        this.indice = 2;
+                        break;
+                    
+                    case "médiocre": 
+                        this.indice = 3;
+                        break;
+
+                    case "dégradé": 
+                        this.indice = 4;
+                        break;
+
+                    case "mauvais": 
+                        this.indice = 5;
+                        break;
+
+                    default:
+                        this.indice = 1;
+                };
+                
+                return this.indice;
+        }
+        */
+    }
+}
+
+</script>
+
+<style>
+.meteo_card_picture
+{
+    background: linear-gradient(to bottom, #72EDF2AA 40%, #5151E5BC 90%), url('../assets/pollutionTest.jpg')  center /auto no-repeat;
+}
+
+.meteo_card {
+    border-radius: 0.8rem;
+}
+</style>

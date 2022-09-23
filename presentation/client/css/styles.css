@@ -1,0 +1,20 @@
+#counter_div {
+  display: flex;
+  border: 5px solid red;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  background-color: #282a36;
+  color: #f8f8f2;
+}
+
+h1 {
+  /*transform: rotate(-8deg);*/
+}
+
+h2 {
+  font-size: 1em;
+  margin-left: 1em;
+  filter: blur(32px);
+  transition: 200ms;
+}
