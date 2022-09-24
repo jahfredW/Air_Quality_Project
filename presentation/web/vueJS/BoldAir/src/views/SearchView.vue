@@ -34,6 +34,8 @@
           <Doucement 
             :period="card.period"
             :indice="card.indice"
+            :pm2_5="card.pm2_5"
+            :description="card.description"
             >
         </Doucement>
         </v-col>

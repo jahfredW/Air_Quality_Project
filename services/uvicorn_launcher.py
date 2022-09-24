@@ -40,3 +40,18 @@ class Api_launcher():
 
     def _command_launcher(self):
         os.system(self._command)
+
+
+class Vue_launcher():
+    def __init__(self):
+        os.chdir("D:\\PycharmProjects\\pythonProject4\\Air_Quality_Project\\presentation\\web\\vueJS\\BoldAir")
+        self._project_directory = os.getcwd()
+        print(self._project_directory)
+        print(f"Répertoire du projet = {os.getcwd()}")
+        self._command = "npm run dev"
+        print(f"Lancement de la commande du serveur Vue JS ")
+        self._command_launcher()
+
+    def _command_launcher(self):
+        os.system(self._command)
+

@@ -4,12 +4,12 @@ from data import pollution_pyowm
 from utils import meteo_utils
 from business.components.pollution_ville import PollutionVille
 from business.components.pollution import Pollution
-from services.uvicorn_launcher import Launcher, Api_launcher
+from services.uvicorn_launcher import Launcher, Api_launcher, Vue_launcher
 from utils.configuration import Configuration
 
 try:
     #méthode getopt ( se référer à la doc pour plus de renseignements )
-    opts, argv = getopt.getopt(sys.argv[1:], 'ahd:iw', ['api', 'display=', 'interactive', 'help', 'web'])
+    opts, argv = getopt.getopt(sys.argv[1:], 'ahd:iwv', ['api', 'display=', 'interactive', 'help', 'web', 'vue'])
 
 
 
@@ -41,14 +41,14 @@ try:
                 choix = int(input('choix?'))
                 p = PollutionVille(liste_villes[choix])
 
-        #configuration en mode API
+        #configuration en mode Web
         elif opt in ('-w', '--web'):
             port = 8000
             if argv != None and argv != "":
                 port = argv
             Launcher(port)
 
-        #pas tout compris
+        #configuration en mode Api
         elif opt in ('-a', '--api'):
             port = 8001
             if argv != None and argv != "":
@@ -56,6 +56,11 @@ try:
 
             Configuration().get_instance().api_port = str(port)
             Api_launcher(port)
+
+        elif opt in ('-v', '--vue'):
+
+            Vue_launcher()
+
 
 
 
