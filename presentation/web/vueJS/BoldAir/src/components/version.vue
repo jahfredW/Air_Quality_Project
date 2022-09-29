@@ -38,7 +38,7 @@
                         </div>
                         <div class="column is-narrow">
                             <div class="subtitle">
-                                environnement : {{ this.getEnv}}
+                                environnement : {{ this.env}}
                             </div>
                         </div>
                     </div>
@@ -54,18 +54,18 @@
 
         data: () => ({
 
-            nom: "fredDev",
-            version : "1.0",
-            envSelect: 1,
+
         }),
+
+        props: {
+          nom: String,
+          version: Number,
+          env: String,
+        },
 
 
         computed: {
-            getEnv() {
 
-                let env = ['DEV', 'INTEGRATION', 'PROD'];
-                return env[this.envSelect];
-        },
         }
     }
 

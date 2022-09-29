@@ -8,12 +8,14 @@ class PollutionAPI:
 
     @staticmethod
     def get_environment():
-        environment = (Configuration().get_instance().version,
-                       Configuration().get_instance().target)
+        environment = [Configuration().get_instance().version,
+                       Configuration().get_instance().target,
+                       Configuration().get_instance().name]
 
         return {
             "version": environment[0],
-            "target": environment[1],
+            "env": environment[1],
+            "name": environment[2],
         }
 
     @staticmethod

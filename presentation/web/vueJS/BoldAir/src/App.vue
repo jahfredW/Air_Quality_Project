@@ -6,8 +6,7 @@
     >
       <v-list-item>
         <v-list-item-content>
-            <v-list-item-title class="text-h6">
-              Menu
+            <v-list-item-title class="text-h6" id="menu">
             </v-list-item-title>
             <v-list-item-subtitle>
               Navigation
@@ -64,13 +63,11 @@
       no-gutters
     >
    
-      <v-btn class="pl-5"
+      <v-btn class="ml-4"
         v-for="link in links" :key="link.title" :to="link.to"
         color="white"
         rounded
         elevation="15"
-        
-        
       >
     
           {{ link.title }}
@@ -81,6 +78,7 @@
         class="primary lighten-2 py-4 text-center white--text"
         cols="12"
       >
+
         {{ new Date().getFullYear() }} — <strong>Fg Dev</strong>
       </v-col>
       
@@ -95,28 +93,33 @@
 
 
 <script>
+
+
+
+
   export default {
     name: "App",
+
     data: () => ({ 
       drawer: null,
       
       items: [
         {
-          title: 'Rechercher>',
+          title: 'Recherche rapide>',
           icon: 'mdi-cloud-search',
           to:'/search',
+        },
+
+          {
+          title: 'Recherche Perso >',
+          icon: 'mdi-cloud-search',
+          to: '/grid',
         },
 
         {
           title: 'A propos >',
           icon: 'mdi-information',
           to: '/about',
-        },
-
-        {
-          title: 'Grid-test >',
-          icon: 'mdi-alert-rhombus',
-          to: '/grid',
         },
 
       ],
@@ -154,7 +157,10 @@
 
       ],
     }),
+
+
   }
+
 </script>
 
 <style>

@@ -115,7 +115,7 @@ class PollutionVille:
         so2_liste = []
         try:
             data = self.load_pollution_ville()
-            for key, value in data.items():
+            for value in data.values():
                 so2_liste.append(value.so2)
             return so2_liste
         except:

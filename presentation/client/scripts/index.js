@@ -1,6 +1,6 @@
 const counter = document.getElementById("counter");
 
-const updateCounter = async () => {
+let updateCounter = async () => {
   const data = await fetch("https://api.countapi.xyz/hit/onVaCourir/visits");
   const count = await data.json();
   counter.innerHTML = count.value;

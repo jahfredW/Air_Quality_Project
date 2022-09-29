@@ -51,9 +51,8 @@ async def read_environment():
         raise HTTPException(status_code=500, detail="Internal serveur error")
 
 
-@serveur.get("/previsions/{ville}")
-def get_prev(ville: str):
-
+@serveur.post("/previsions")
+async def get_prev(ville: str = Form(...)):
     try:
         api = PollutionAPI()
         prev = jsons.dump(api.get_previsions(ville))

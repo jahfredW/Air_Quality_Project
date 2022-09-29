@@ -3,7 +3,7 @@
         <div class="card-header">
             <div class="card-header-title">{{ this.dayFromPeriod }}</div>
             <div class="card-header-icon">
-                <font-awesome-icon icon="fas fa-sun" class="has-text-warning" ></font-awesome-icon>
+                <font-awesome-icon icon="fas fa-lungs"  ></font-awesome-icon>
             </div>
         </div>
         <div class="py-6 meteo_card_picture">
@@ -37,6 +37,8 @@
 
 
     export default {
+
+
 
         data: () => ({
             STATUT_API_BON : "Qualité de l'air excellente !",

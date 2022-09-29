@@ -127,6 +127,13 @@ class Configuration(metaclass=Singleton):
         config_section = config_object["ENVIRONMENT"]
         return config_section["target"]
 
+    @property
+    def name(self):
+        config_object = ConfigParser()
+        config_object.read(self._config_file_path)
+        config_section = config_object["ENVIRONMENT"]
+        return config_section["name"]
+
     def get_instance(self):
         return self
 

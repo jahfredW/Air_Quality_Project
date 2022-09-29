@@ -12,8 +12,19 @@
 import { defineComponent } from 'vue';
 
 import DoucementCard from '../components/Doucement.vue';
+import {useUrlStore} from "../stores/url";
 
 export default defineComponent({
+
+    setup: () => {
+        const store = useUrlStore()
+
+
+        return {
+          store
+        }
+      },
+
     name: 'DoucementView',
 
     components: {

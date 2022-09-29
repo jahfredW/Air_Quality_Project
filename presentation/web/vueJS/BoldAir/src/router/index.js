@@ -14,7 +14,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: VersionView
+      component: HomeView
     },
     {
       path: '/about',
@@ -22,7 +22,7 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('../views/searchView.vue')
+      component: () => import('../views/VersionView.vue')
     },
 
     {
@@ -32,9 +32,9 @@ const router = createRouter({
     },
 
     {
-      path: '/grid',
-      name: 'grid',
-      component: () => import ('../views/TestGridView.vue')
+      path: '/persoSearch',
+      name: 'persoSearch',
+      component: () => import ('../views/VersionView.vue')
     },
   ]
 })

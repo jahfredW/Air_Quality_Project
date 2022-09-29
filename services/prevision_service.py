@@ -27,7 +27,6 @@ class PrevisionsService:
             previsions[index] = self._pollution_ville.aqi_description(indices[index])
         return previsions
 
-p = PrevisionsService('Dunkerque')
-print(p.previsions_status())
+
 
 

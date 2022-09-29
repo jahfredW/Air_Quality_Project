@@ -31,10 +31,9 @@
       </v-row>
       <v-row>
         <v-col v-for="card in this.cardItems">
-          <Doucement 
+          <Doucement
             :period="card.period"
             :indice="card.indice"
-            :pm2_5="card.pm2_5"
             :description="card.description"
             >
         </Doucement>
@@ -45,21 +44,36 @@
 
 <script>
     import { defineComponent } from 'vue';
-    
+    import { useUrlStore } from "../stores/url";
+
+
     // Components
     import Doucement from '../components/Doucement.vue';
     import axios from 'axios';
-    
+
+
     export default defineComponent({
-    
+
+      setup: () => {
+        const store = useUrlStore()
+        const urlMain = store.urlMain
+        const ipMain = store.ipMain
+        const portMAin = store.portMain
+
+        return {
+          urlMain, ipMain, portMAin
+        }
+      },
+
       components: {
         Doucement //expose le composant importé pour utilisation dans le template
       },
-    
+
       name: "DoucementView",
+
       data: () => ({
         cardItems: [
-          
+
 
         ],
         valid: true,
@@ -68,18 +82,18 @@
           v => !!v || 'Vous devez indiquer une ville pour la recherche',
           v => (v && v.length <= 20  ) || 'Le nom de la ville doit être inférieur à 20 caractères',
           v => (v[0].toUpperCase() === v[0]) && (v.slice(1) !== v.slice(1).toUpperCase()) || 'Seule la première lettre doit être en majuscule',
-          
+
         ],
         errorMessage: '',
         error: false
 
-    
+
       }),
-    
+
       methods: {
-    
+
         submit() {
-    
+
           // technique pour éviter les problèmes lors des appels asynchrones avec
           // avec la librairie Axios.
           // lors de l'utilisation de fonction javascripts flechés, le mot clé this
@@ -88,28 +102,33 @@
           // ce qui pose problème lorsqu'on veut mettre à jour des données du composant.
           // c'est pourquoi on crée un variable qui sert de référence au composant.
           let self = this;
-    
+
           // on réinitialise une erreur si il y en avait une
           this.error = false;
-    
+
           if (this.$refs.form.validate()) {
             let ville = this.search.replaceAll(' ', '+');
-            console.log(ville);
-            console.log('ici');
-    
-            axios.get('http://127.0.0.1:8001/previsions/' + ville, this.$refs.form)
+
+            var formData = new FormData();
+            formData = {ville}
+            axios.post("http://" + this.ipMain + ":" + this.portMAin + "/previsions", formData, {
+              headers: {
+                'Content-Type': 'multipart/form-data'
+              }
+            })
               .then((res) => {
-    
+
                 // on supprime les valeurs dans le tableau cardItems
 
                 this.cardItems = []
-                
-    
+                console.log(res.data)
+
+
                 // on ajoute au tableau les données reçues du backend
                 for (var i in res.data) {
                   this.cardItems.push(res.data[i])
                 }
-    
+
               })
               .catch(function (error) {
                 if (error.response) {
@@ -118,7 +137,7 @@
                   console.log(error.response.data);
                   console.log(error.response.status);
                   console.log(error.response.headers);
-    
+
                   // Si c'est une erreur 520, il a été définit que ce sont des informations d'erreur
                   // envoyées par le back.
                   // Nous pouvons donc l'utiliser pour afficher le message à l'utilisateur
@@ -126,7 +145,7 @@
                     self.errorMessage = error.response.data.detail;
                     self.error = true;
                   }
-    
+
                 } else if (error.request) {
                   // The request was made but no response was received
                   // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
@@ -140,9 +159,9 @@
               })
           }
         },
-    
+
       },
-    
+
     })
     </script>
     
