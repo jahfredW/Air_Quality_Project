@@ -65,5 +65,17 @@ async def get_prev(ville: str = Form(...)):
         raise HTTPException(status_code=500, detail="Internal serveur error")
 
 
+@serveur.post("/previsionsJour")
+async def get_prev(ville: str = Form(...)):
+    try:
+        api = PollutionAPI()
+        prev = jsons.dump(api.get_previsions_jour(ville))
+        return prev
+    except ApplicationException as ae:
+        print("Erreur: " + str(ae))
+        raise HTTPException(status_code=520, detail=str(ae))
+    except Exception as e:
+        print("Erreur: " + str(e))
+        raise HTTPException(status_code=500, detail="Internal serveur error")
 
 

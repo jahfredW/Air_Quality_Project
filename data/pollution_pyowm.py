@@ -1,9 +1,32 @@
+from datetime import datetime
+
 import pyowm
 from pyowm.utils.config import get_default_config
 
 _meteo_already_exists = {}
 _pollution_already_exists = {}
 
+
+class PrevTabBuilder:
+    def __init__(self, ville: str):
+        self._data = PollutionPyown()
+        self._prevs = self._data._get_pollution_ville(ville)
+        self._data_list = []
+        self._new_tab = []
+
+    def tab_build(self):
+        count_section = 1
+        for prev in self._prevs:
+            date = datetime.fromtimestamp(prev.ref_time)
+            date_str = str(date)
+            self._new_tab.append((count_section, date_str, prev.air_quality_data))
+            if date_str[11:] == "00:00:00":
+                self._data_list.append(self._new_tab)
+                self._new_tab = []
+                count_section = 0
+            count_section += 1
+
+        return self._data_list
 
 class PollutionPyown:
 
@@ -108,3 +131,14 @@ class PollutionPyown:
 
         else:
             raise Exception("Attention, l'API Pollution n'a pas été initialisée")
+
+
+
+
+    def _get_pollution_forecast(self, ville):
+        forecast = PrevTabBuilder(ville).tab_build()
+        return forecast
+
+p = PrevTabBuilder('Dunkerque').tab_build()
+print(p)
+
