@@ -11,7 +11,7 @@ r = requests.get(f'http://api.openweathermap.org/data/2.5/air_pollution?lat={get
 
 
 texte = r.json()
-co_taux = texte['list'][0]['components']['co']
+print(texte)
 
 """
 r2 = requests.get('http://127.0.0.1:8001/pollution/Paris/all')

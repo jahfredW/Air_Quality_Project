@@ -1,3 +1,5 @@
+import datetime
+
 import requests
 import pyowm
 from pyowm.utils.config import get_default_config
@@ -23,3 +25,6 @@ print(test_api.airpollution_manager().air_quality_forecast_at_coords(location.la
 response = requests.get('http://api.openweathermap.org/data/2.5/forecast?lat=50&lon=50&appid=de344c900509e22467e79e19be02d6bb')
 print(response.status_code)
 """
+
+now = datetime.datetime.utcnow()
+print(int(now.timestamp()))

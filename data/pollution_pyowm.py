@@ -17,16 +17,18 @@ class PrevTabBuilder:
     def tab_build(self):
         count_section = 1
         for prev in self._prevs:
+            date_stamp = prev.ref_time
             date = datetime.fromtimestamp(prev.ref_time)
             date_str = str(date)
-            self._new_tab.append((count_section, date_str, prev.air_quality_data))
+            self._new_tab.append((count_section, date_str, date_stamp, prev.air_quality_data))
             if date_str[11:] == "00:00:00":
                 self._data_list.append(self._new_tab)
                 self._new_tab = []
                 count_section = 0
             count_section += 1
 
-        return self._data_list
+        print("récupération des données via l'API OWM")
+        return self._data_list[0]
 
 class PollutionPyown:
 
@@ -135,10 +137,9 @@ class PollutionPyown:
 
 
 
-    def _get_pollution_forecast(self, ville):
+    def _get_instant_pollution_forecast(self, ville):
         forecast = PrevTabBuilder(ville).tab_build()
         return forecast
 
-p = PrevTabBuilder('Dunkerque').tab_build()
-print(p)
+
 
