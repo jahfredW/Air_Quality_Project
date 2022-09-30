@@ -150,7 +150,7 @@ class PollutionForecast:
             id_ville = self._pollution_data.get_id_ville(self.ville.nom)[0][0]
             print(id_ville)
 
-        self._pollution_data.delete_prevision_ville(self.ville.nom)
+        self._pollution_data.delete_prevision_ville_instant(self.ville.nom)
 
         print('Ajout des données en BDD:')
 

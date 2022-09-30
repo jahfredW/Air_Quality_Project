@@ -234,6 +234,38 @@ class PollutionData():
             if connection is not None:
                 connection.close()
 
+    def delete_prevision_ville_instant(self, nom_ville):
+        """
+        Supprime les prévisions météo pour une ville
+        :param nom_ville: nom de la ville
+        :return:
+        """
+        sql = f"DELETE FROM pollution_daily WHERE id_ville in (select id_ville from ville where nom = '{nom_ville}');"
+
+        connection = None
+        try:
+            # obtention de la connexion à la base de données
+            connection = psycopg2.connect(**self.params)
+            # create a new cursor
+            cursor = connection.cursor()
+
+            cursor.execute(sql, nom_ville)
+
+            # commit the changes to the database
+            connection.commit()
+            # close communication with the database
+            cursor.close()
+
+        except (Exception, psycopg2.DatabaseError) as error:
+            print("Erreur delete_prevision_ville:")
+            print(error)
+        finally:
+            if connection is not None:
+                connection.close()
+
+
+
+
     def delete_prevision_ville(self, nom_ville):
         """
         Supprime les prévisions météo pour une ville
