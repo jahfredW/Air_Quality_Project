@@ -1,3 +1,4 @@
+import json
 from datetime import datetime
 
 import pyowm
@@ -47,7 +48,7 @@ class PrevTabWeekBuilder:
             date_str = str(date)
             self._new_tab.append((count_section, date_str, date_stamp, prev.air_quality_data))
             if date_str[11:] == "00:00:00":
-                self._data_list[f"jour_{count_week}"] = (self._new_tab)
+                self._data_list[count_week] = (self._new_tab)
                 self._new_tab = []
                 count_section = 0
                 count_week += 1
@@ -170,6 +171,18 @@ class PollutionPyown:
         return forecast
 
 
+    def _get_week_pollution_week(self, ville):
+        forecast = PrevTabWeekBuilder(ville).tab_build()
+        return forecast
 
-p = PrevTabWeekBuilder('Dunkerque')
-print(p.tab_build()["jour_2"])
+
+p = PrevTabWeekBuilder('Lille')
+data = str(p.tab_build())
+
+with open("test.txt", 'w') as t:
+    json.dump(data, t)
+
+with open("test.txt", 'w') as t:
+    t.write(data)
+
+

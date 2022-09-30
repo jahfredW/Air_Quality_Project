@@ -1,9 +1,9 @@
 import business.components.pollution_instant_to_back
 from data.pollution_pyowm import PollutionPyown
-from business.components.pollution_instant_to_back import PollutionForecast
+from business.components.pollution_week import PollutionWeek
 
 
-class PollutionInstant:
+class PollutionWeek:
     """
     Dans cette classe, on récupère les données de pollution_ville (classe PollutionVille)
     Récupération des données contenues dans les objets créés par pollution_ville.
@@ -23,7 +23,7 @@ class PollutionInstant:
             if pollution_ville.ville.nom == self._ville:
                 return pollution_ville
 
-        pollution = business.components.pollution_instant_to_back.PollutionForecast(self._ville)
+        pollution = business.components.pollution_week.PollutionWeek(self._ville)
         self._meteo_villes.append(pollution)
 
         return pollution
@@ -31,20 +31,3 @@ class PollutionInstant:
     def get_prev(self):
         pollution = business.components.pollution_instant_to_back.PollutionForecast(self._ville)
         return pollution.get_prev()
-
-    @staticmethod
-    def aqi_description(aqi):
-        description = ""
-        if aqi == 1:
-            description = "Qualité de l'air excellente !"
-        elif aqi == 2:
-            description = "Qualité de l'air convenable"
-        elif aqi == 3:
-            description = "Qualité de l'aire médiocre.."
-        elif aqi == 4:
-            description = "Qualité de l'air dégradée !"
-        else:
-            description = "Alerte Pollution ! "
-
-        return description
-
