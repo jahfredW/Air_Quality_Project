@@ -1,6 +1,6 @@
 <template>
     <v-container>
-      <v-row class="mt-6 mb-2 " no-gutters >
+      <v-row class="mt-6 mb-2" no-gutters>
         <v-col cols="6" offset="4" class="pl-5">
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-row no-gutters>
@@ -30,14 +30,15 @@
         </v-col>
       </v-row>
       <v-row>
-        <v-col v-for="card in this.cardItems">
-          <Doucement
-            :period="card.period"
-            :indice="card.indice"
-            :description="card.description"
+
+        <v-col v-for="(card, index) in this.cardItems[0]" :key="card">
+          <InstantData v-if="index !== 'period'"
+            :no="card"
+            :period="index"
             >
-        </Doucement>
+        </InstantData>
         </v-col>
+
       </v-row>
     </v-container>
   </template>
@@ -68,10 +69,9 @@
 
       components: {
         InstantData,
-        Doucement //expose le composant importé pour utilisation dans le template
       },
 
-      name: "DoucementView",
+      name: "SearchInstantView",
 
       data: () => ({
         cardItems: [
@@ -113,7 +113,7 @@
 
             var formData = new FormData();
             formData = {ville}
-            axios.post("http://" + this.ipMain + ":" + this.portMAin + "/previsions", formData, {
+            axios.post("http://" + this.ipMain + ":" + this.portMAin + "/previsionsJour", formData, {
               headers: {
                 'Content-Type': 'multipart/form-data'
               }
@@ -166,9 +166,9 @@
 
     })
     </script>
-    
-    
-  
+
+
+
   <style>
   @media (min-width: 1024px) {
     .about {

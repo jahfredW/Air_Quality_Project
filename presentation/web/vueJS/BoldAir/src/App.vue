@@ -46,8 +46,8 @@
     >
   
         <v-app-bar-nav-icon color="white" @click="drawer = !drawer"></v-app-bar-nav-icon>
-        <v-app-bar-title class="is-size-3 has-text-centered has-text-white">Bold'Air</v-app-bar-title>
-      <font-awesome-icon icon="fa-solid fa-earth-europe" class="is-size-3 mx-5" />
+        <v-app-bar-title class="is-size-3 has-text-centered has-text-white pr-16">Bold'Air</v-app-bar-title>
+
 
     </v-app-bar>
 
@@ -105,15 +105,15 @@
       
       items: [
         {
-          title: 'Recherche rapide>',
+          title: 'Indices Semaine>',
           icon: 'mdi-cloud-search',
           to:'/search',
         },
 
           {
-          title: 'Recherche Perso >',
+          title: 'Données instantanées >',
           icon: 'mdi-cloud-search',
-          to: '/grid',
+          to: '/searchInstant',
         },
 
         {
@@ -154,6 +154,13 @@
           to: '/',
          
         },
+
+          {
+          title: "Rate Us",
+          to: '/',
+
+        },
+
 
       ],
     }),

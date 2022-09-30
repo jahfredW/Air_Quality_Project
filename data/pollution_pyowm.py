@@ -30,6 +30,34 @@ class PrevTabBuilder:
         print("récupération des données via l'API OWM")
         return self._data_list[0]
 
+
+class PrevTabWeekBuilder:
+    def __init__(self, ville: str):
+        self._data = PollutionPyown()
+        self._prevs = self._data._get_pollution_ville(ville)
+        self._data_list = {}
+        self._new_tab = []
+
+    def tab_build(self):
+        count_section = 1
+        count_week = 0
+        for prev in self._prevs:
+            date_stamp = prev.ref_time
+            date = datetime.fromtimestamp(prev.ref_time)
+            date_str = str(date)
+            self._new_tab.append((count_section, date_str, date_stamp, prev.air_quality_data))
+            if date_str[11:] == "00:00:00":
+                self._data_list[f"jour_{count_week}"] = (self._new_tab)
+                self._new_tab = []
+                count_section = 0
+                count_week += 1
+            count_section += 1
+
+        print("récupération des données via l'API OWM")
+        return self._data_list
+
+
+
 class PollutionPyown:
 
     # ------------------------
@@ -143,3 +171,5 @@ class PollutionPyown:
 
 
 
+p = PrevTabWeekBuilder('Dunkerque')
+print(p.tab_build()["jour_2"])

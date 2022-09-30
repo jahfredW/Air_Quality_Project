@@ -90,36 +90,7 @@
 
                 return weekDays[dateFromPeriod.getDay()];
             },
-            /*
-            indiceCalcul() {
-                switch(this.pollutionStatus) {
-                    case "bon": 
-                        this.indice = 1;
-                        break;
 
-                    case "correct": 
-                        this.indice = 2;
-                        break;
-                    
-                    case "médiocre": 
-                        this.indice = 3;
-                        break;
-
-                    case "dégradé": 
-                        this.indice = 4;
-                        break;
-
-                    case "mauvais": 
-                        this.indice = 5;
-                        break;
-
-                    default:
-                        this.indice = 1;
-                };
-                
-                return this.indice;
-        }
-        */
     }
 }
 

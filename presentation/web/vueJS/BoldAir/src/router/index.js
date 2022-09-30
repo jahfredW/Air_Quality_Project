@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from 'vue-router'
 import PollutionView from '../views/PollutionView.vue'
 import MeteoView from '../views/MeteoView.vue'
 import HomeView from '../views/HomeView.vue'
+import SearchInstantView from "../views/SearchInstantView.vue";
 import ComponentView from '../views/Test.vue'
 import DoucementView from '../views/Doucement.vue'
 import VersionView from '../views/VersionView.vue'
@@ -36,6 +37,13 @@ const router = createRouter({
       name: 'persoSearch',
       component: () => import ('../views/VersionView.vue')
     },
+
+    {
+    path: '/searchInstant',
+    name: 'searchInstant',
+    component: () => import ('../views/SearchInstantView.vue')
+  },
+
   ]
 })
 
