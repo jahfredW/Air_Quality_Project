@@ -1,9 +1,11 @@
-import os
+import datetime
+import pytz
+from datetime import datetime
 
-current_dir = os.getcwd()
 
-os.chdir(current_dir + "/dossier_test")
+print(datetime.now())
+print(datetime.now().time())
 
-print(current_dir)
+
 
 

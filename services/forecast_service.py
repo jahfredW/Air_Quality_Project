@@ -1,4 +1,4 @@
-from business.components.pollution_instant import PollutionForecast
+from business.components.pollution_instant_high import PollutionInstant
 
 
 class ForecastService:

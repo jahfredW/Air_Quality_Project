@@ -38,7 +38,7 @@
 
     export default {
 
-
+        name : "Doucement",
 
         data: () => ({
             STATUT_API_BON : "Qualité de l'air excellente !",

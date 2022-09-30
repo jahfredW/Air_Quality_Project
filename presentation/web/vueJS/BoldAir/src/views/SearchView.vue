@@ -38,6 +38,9 @@
             >
         </Doucement>
         </v-col>
+        <v-col>
+          <InstantData></InstantData>
+        </v-col>
       </v-row>
     </v-container>
   </template>
@@ -49,6 +52,7 @@
 
     // Components
     import Doucement from '../components/Doucement.vue';
+    import InstantData from "../components/InstantData.vue";
     import axios from 'axios';
 
 
@@ -66,6 +70,7 @@
       },
 
       components: {
+        InstantData,
         Doucement //expose le composant importé pour utilisation dans le template
       },
 

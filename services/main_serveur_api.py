@@ -69,7 +69,7 @@ async def get_prev(ville: str = Form(...)):
 async def get_prev(ville: str = Form(...)):
     try:
         api = PollutionAPI()
-        prev = jsons.dump(api.get_previsions_jour(ville))
+        prev = jsons.dump(api.get_previsions_instant(ville))
         return prev
     except ApplicationException as ae:
         print("Erreur: " + str(ae))

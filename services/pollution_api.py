@@ -3,6 +3,7 @@ from utils.configuration import Configuration
 from business.components.pollution import Pollution
 from services.prevision_service import PrevisionsService
 from services.forecast_service import ForecastService
+from services.instant_service import InstantService
 from services.dto.pollution_card_dto import PollutionCardDTO
 
 
@@ -29,7 +30,6 @@ class PollutionAPI:
         pm_2_5 = service.previsions_pm2_5()
         description = service.previsions_status()
 
-
         previsions = []
 
         maxi = len(indices)
@@ -48,42 +48,27 @@ class PollutionAPI:
 
         return previsions
 
-
     @staticmethod
-    def get_previsions_jour(ville: str):
+    def get_previsions_instant(ville: str):
         ville = ville.replace('+', ' ')
-        service = ForecastService(ville)
+        service = InstantService(ville)
         print("service de prévisions initialisé")
-        aqi = service.previsions_aqi_jour()
-        co = service.previsions_co_jour()
-        so2 = service.previsions_so2_jour()
-        nh3 = service.previsions_nh3_jour()
-        no = service.previsions_no_jour()
-        no2 = service.previsions_no2_jour()
-        o3 = service.previsions_o3_jour()
-        pm25 = service.previsions_pm25_jour()
-        pm10 = service.previsions_pm10_jour()
-
 
         previsions = []
 
-        maxi = len(aqi)
+        dto = PollutionForecastDTO()
+        dto.period = service.previsions_all()['period']
+        dto.aqi = service.previsions_all()['aqi']
+        dto.co = service.previsions_all()['co']
+        dto.so2 = service.previsions_all()['so2']
+        dto.nh3 = service.previsions_all()['nh3']
+        dto.no = service.previsions_all()['no']
+        dto.no2 = service.previsions_all()['no2']
+        dto.o3 = service.previsions_all()['o3']
+        dto.pm25 = service.previsions_all()['pm25']
+        dto.pm10 = service.previsions_all()['pm10']
 
-        for hour in range(maxi):
-            dto = PollutionForecastDTO()
-            dto.period = hour
-            dto.aqi = aqi[hour]
-            dto.co = co[hour]
-            dto.so2 = so2[hour]
-            dto.nh3 = nh3[hour]
-            dto.no = no[hour]
-            dto.no2 = no2[hour]
-            dto.o3 = o3[hour]
-            dto.pm25 = pm25[hour]
-            dto.pm10 = pm10[hour]
-
-            previsions.append(dto)
+        previsions.append(dto)
 
         return previsions
-
 

@@ -9,6 +9,7 @@ class PrevisionsService:
     def previsions_indice(self):
         previsions = {}
         data = self._pollution_ville.get_aqi()
+        print(data)
         for index in range(len(data)):
             previsions[index] = data[index]
         return previsions
@@ -26,6 +27,7 @@ class PrevisionsService:
         for index in range(len(indices)):
             previsions[index] = self._pollution_ville.aqi_description(indices[index])
         return previsions
+
 
 
 

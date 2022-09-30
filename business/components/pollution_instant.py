@@ -1,4 +1,4 @@
-from business.entities.pollution_instant import Pollution_instant
+from business.entities.pollution_instant_entitie import Pollution_instant
 from business.entities.ville import Ville
 from utils.meteo_common import MeteoCommon
 from data.pollution_data import PollutionData
@@ -95,13 +95,9 @@ class PollutionForecast:
 
     # fonction de récupération, ne sert pas à consulter les données mais à construire les objets
     # Ne sert pas ici
-    def get_aqi(self):
-
-        aqi_liste = []
+    def get_prev(self):
         data = self.load_pollution_ville()
-        for key, value in data.items():
-            aqi_liste.append(value.aqi)
-        return aqi_liste
+        return data
 
     def get_pm2_5(self):
         pm2_5_liste = []
@@ -113,32 +109,14 @@ class PollutionForecast:
         except:
             print("Les données pm2_5 sont indisponibles")
 
-    def get_pm10(self):
-        pm10_liste = []
-        try:
-            data = self.load_pollution_ville()
-            for key, value in data.items():
-                pm10_liste.append(value.pm10)
-            return pm10_liste
-        except:
-            print("Les données pm10 sont indisponibles ")
 
-    def get_so2(self):
-        so2_liste = []
-        try:
-            data = self.load_pollution_ville()
-            for value in data.values():
-                so2_liste.append(value.so2)
-            return so2_liste
-        except:
-            print("Les données pm10 sont indisponibles ")
 
     def load_pollution_ville(self):
         pollution_ville = self._pollution_data.read_pollution_forecast_daily(self.ville.nom)
         pol = pollution_ville[0]
 
-        if self.prev_jour:
-            self.prev_jour.clear()
+        #if self.prev_jour:
+        #    self.prev_jour.clear()
 
         prev_jour = Pollution_instant()
         prev_jour.ville = self.ville
@@ -159,7 +137,7 @@ class PollutionForecast:
 
     def save_pollution_ville_by_date(self):
 
-        now = int(datetime.datetime.utcnow().timestamp())
+        now = int(datetime.datetime.now().timestamp())
         forecast_dict = {}
         # Ici on save les données bruts récupérées via l'API
         # En fonction de la date ( donc forcément une prev par jour)
@@ -186,16 +164,20 @@ class PollutionForecast:
     def _need_refresh(self):
         hour_last_update = self._pollution_data.get_last_update_daily(self.ville.nom)
 
-        now = int(datetime.datetime.utcnow().timestamp())
+        now = int(datetime.datetime.now().timestamp())
 
         if hour_last_update is None:
             return True
 
         else:
-            delta_hour = hour_last_update - now
+            delta_hour = now - hour_last_update
 
             if delta_hour >= 3600:
+                print(delta_hour)
                 return True
             else:
                 return False
+
+
+
 
