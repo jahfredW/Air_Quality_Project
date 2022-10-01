@@ -9,3 +9,4 @@ compagny/
 !**/__pycache__/
 __pycache__/
 etude/
+*.pyc

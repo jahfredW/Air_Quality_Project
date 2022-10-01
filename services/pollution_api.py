@@ -1,3 +1,5 @@
+import datetime
+
 from services.dto.PollutionForecastDTO import PollutionForecastDTO
 from utils.configuration import Configuration
 from business.components.pollution import Pollution
@@ -57,7 +59,6 @@ class PollutionAPI:
         previsions = []
 
         dto = PollutionForecastDTO()
-        dto.period = service.previsions_all()['period']
         dto.aqi = service.previsions_all()['aqi']
         dto.co = service.previsions_all()['co']
         dto.so2 = service.previsions_all()['so2']

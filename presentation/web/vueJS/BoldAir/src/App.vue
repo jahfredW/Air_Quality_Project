@@ -1,4 +1,4 @@
-<template>
+<template class="is-mobile">
   <v-app id="inspire">
     <v-navigation-drawer
       v-model="drawer"
@@ -35,7 +35,6 @@
             </v-list-item>
             <v-divider></v-divider> 
         </v-list>
-    
     </v-navigation-drawer>
 
     <v-app-bar id="app_bar" 
@@ -44,10 +43,10 @@
     density="prominent"
     bottom
     >
-  
         <v-app-bar-nav-icon color="white" @click="drawer = !drawer"></v-app-bar-nav-icon>
-        <v-app-bar-title class="is-size-3 has-text-centered has-text-white pr-16">Bold'Air</v-app-bar-title>
+        <v-app-bar-title class="is-size-3 has-text-centered has-text-white pr-16">Bold'Air
 
+        </v-app-bar-title>
 
     </v-app-bar>
 
@@ -63,7 +62,7 @@
       no-gutters
     >
    
-      <v-btn class="ml-4"
+      <v-btn class="ml-8 mt-3"
         v-for="link in links" :key="link.title" :to="link.to"
         color="white"
         rounded
@@ -75,7 +74,7 @@
       </v-btn>
      
       <v-col
-        class="primary lighten-2 py-4 text-center white--text"
+        class="primary lighten-2 py-5 text-center white--text"
         cols="12"
       >
 
@@ -132,33 +131,16 @@
         },
 
         {
-          title: "About Us",
+          title: "About Me",
           to: '/',
           
         },
 
-        {
-          title: "Team",
-          to: '/',
-         
-        },
 
         {
-          title: "Services",
+          title: "Contact Me",
           to: '/',
          
-        },
-
-        {
-          title: "Contact Us",
-          to: '/',
-         
-        },
-
-          {
-          title: "Rate Us",
-          to: '/',
-
         },
 
 

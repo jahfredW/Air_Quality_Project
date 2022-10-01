@@ -3,7 +3,7 @@ from services.dto.dto_base import DTO_base
 
 class PollutionForecastDTO(DTO_base):
     def __init__(self):
-        self.period = -1
+        #self.period = -1
         self.co = -1
         self.aqi = -1
         self.so2 = -1

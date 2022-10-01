@@ -1,11 +1,12 @@
 <template>
 <v-container>
   <v-row class="has-text-centered" >
-    <v-col>
+    <v-col cols="6">
       <div><font-awesome-icon icon="fa-solid fa-smog" class="pr-3" />
-          <strong> {{this.period}} : {{ this.no }} </strong></div>
+          <div> {{this.period}} </div>
+          <div> {{ this.no }} </div></div>
     </v-col>
-    <v-col class="ml-6">
+    <v-col cols="12">
       <v-progress-circular
       v-model="no"
       color="#ccb3ff"
@@ -16,15 +17,9 @@
       </template>
     </v-progress-circular>
     </v-col>
-    <v-col class="pt-0 mx-10">
-      <v-rating
-      v-model="rating"
-      background-color="purple lighten-3"
-      color="purple"
-      large
-    ></v-rating>
-    </v-col>
-  </v-row>
+    </v-row>
+
+
   <v-divider></v-divider>
 
 </v-container>

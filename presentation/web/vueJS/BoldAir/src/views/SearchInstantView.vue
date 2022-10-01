@@ -1,7 +1,7 @@
 <template>
     <v-container>
       <v-row class="mt-6 mb-2" no-gutters>
-        <v-col cols="6" offset="4" class="pl-5">
+        <v-col cols="6" offset="4" class="pl-6">
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-row no-gutters>
               <v-col>
@@ -10,11 +10,14 @@
                   single-line></v-text-field>
               </v-col>
               <v-col class="px-1 mt-1">
-                <v-btn color="success" size="x-large" @click="submit">
+
+                  <v-btn color="success" size="x-large" @click="submit">
                   <v-icon size="large" dark>
                     mdi-cloud-search
                   </v-icon>
                 </v-btn>
+
+
               </v-col>
             </v-row>
           </v-form>
@@ -23,38 +26,54 @@
       <v-row>
         <v-col cols="6" offset="3">
           <div>
-            <v-alert v-model="error" variant="outlined" type="info" prominent border="top" @click="this.error = false; ">
-              {{ this.errorMessage }}
+            <v-alert v-model="error" variant="outlined" type="info" prominent border="top" @click="this.error = true; ">
+              <div class="has-text-centered">
+                <p>{{ this.message }} </p>
+              </div>
             </v-alert>
           </div>
         </v-col>
       </v-row>
       <v-row>
 
+
+
+        <v-col v-if="loading" cols="12">
+          <Loading>
+
+          </Loading>
+
+        </v-col>
+        <v-col class="subtitle has-text-centered" cols="12"> {{ this.toDate() }}</v-col>
+
+
         <v-col v-for="(card, index) in this.cardItems[0]" :key="card">
-          <InstantData v-if="index !== 'period'"
+
+          <InstantData
             :no="card"
             :period="index"
             >
         </InstantData>
+
         </v-col>
+
 
       </v-row>
     </v-container>
   </template>
 
 <script>
-    import { defineComponent } from 'vue';
-    import { useUrlStore } from "../stores/url";
+import {defineComponent} from 'vue';
+import {useUrlStore} from "../stores/url";
 
 
-    // Components
-    import Doucement from '../components/Doucement.vue';
-    import InstantData from "../components/InstantData.vue";
-    import axios from 'axios';
+// Components
+import InstantData from "../components/InstantData.vue";
+import Loading from "../components/loading.vue";
+import axios from 'axios';
 
 
-    export default defineComponent({
+export default defineComponent({
 
       setup: () => {
         const store = useUrlStore()
@@ -69,6 +88,7 @@
 
       components: {
         InstantData,
+        Loading,
       },
 
       name: "SearchInstantView",
@@ -78,21 +98,37 @@
 
 
         ],
+        message: "",
         valid: true,
+        loading: false,
         search: '',
         searchRules: [
           v => !!v || 'Vous devez indiquer une ville pour la recherche',
           v => (v && v.length <= 20  ) || 'Le nom de la ville doit être inférieur à 20 caractères',
-          v => (v[0].toUpperCase() === v[0]) && (v.slice(1) !== v.slice(1).toUpperCase()) || 'Seule la première lettre doit être en majuscule',
+          v => (v[0].toUpperCase() === v[0]) && (v.slice(1) === v.slice(1).toLowerCase()) || 'Seule la première lettre doit être en majuscule',
+
 
         ],
         errorMessage: '',
-        error: false
+        error: false,
+
 
 
       }),
 
       methods: {
+
+
+
+        toDate() {
+          if (this.cardItems.length > 0) {
+            const timestamp = new Date().getTime();
+            let date = new Date(timestamp)
+            let dateStr = date.toString()
+            return dateStr.slice(0, 25)
+          }
+
+        },
 
         submit() {
 
@@ -103,12 +139,16 @@
           //
           // ce qui pose problème lorsqu'on veut mettre à jour des données du composant.
           // c'est pourquoi on crée un variable qui sert de référence au composant.
+
           let self = this;
+          this.cardItems = [];
 
           // on réinitialise une erreur si il y en avait une
           this.error = false;
 
-          if (this.$refs.form.validate()) {
+          if (this.$refs.form.validate() && ( this.search[0].toUpperCase() === this.search[0]
+          && this.search.slice(1) === this.search.slice(1).toLowerCase())) {
+            this.loading = true;
             let ville = this.search.replaceAll(' ', '+');
 
             var formData = new FormData();
@@ -124,6 +164,7 @@
 
                 this.cardItems = []
                 console.log(res.data)
+                this.loading = false
 
 
                 // on ajoute au tableau les données reçues du backend
@@ -143,9 +184,14 @@
                   // Si c'est une erreur 520, il a été définit que ce sont des informations d'erreur
                   // envoyées par le back.
                   // Nous pouvons donc l'utiliser pour afficher le message à l'utilisateur
-                  if (error.response.status === 520) {
+                  if (error.response.status === 500) {
+
                     self.errorMessage = error.response.data.detail;
                     self.error = true;
+                    self.message = "La ville n'existe pas ! Réessaie ! "
+                    this.loading = false;
+
+
                   }
 
                 } else if (error.request) {
@@ -159,6 +205,8 @@
                 }
                 console.log(error.config);
               })
+          } else {
+            this.loading = false;
           }
         },
 

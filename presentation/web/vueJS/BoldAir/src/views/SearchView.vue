@@ -1,7 +1,7 @@
 <template>
     <v-container>
       <v-row class="mt-6 mb-2 " no-gutters >
-        <v-col cols="6" offset="4" class="pl-5">
+        <v-col cols="6" offset="4" class="pl-6">
           <v-form ref="form" v-model="valid" lazy-validation>
             <v-row no-gutters>
               <v-col>
@@ -24,12 +24,15 @@
         <v-col cols="6" offset="3">
           <div>
             <v-alert v-model="error" variant="outlined" type="info" prominent border="top" @click="this.error = false; ">
-              {{ this.errorMessage }}
+              {{ this.message }}
             </v-alert>
           </div>
         </v-col>
       </v-row>
       <v-row>
+        <v-col v-if="loading" cols="12">
+          <Loading></Loading>
+        </v-col>
         <v-col v-for="card in this.cardItems">
           <Doucement
             :period="card.period"
@@ -50,6 +53,7 @@
     // Components
     import Doucement from '../components/Doucement.vue';
     import InstantData from "../components/InstantData.vue";
+    import Loading from "../components/loading.vue";
     import axios from 'axios';
 
 
@@ -68,7 +72,8 @@
 
       components: {
         InstantData,
-        Doucement //expose le composant importé pour utilisation dans le template
+        Loading,
+        Doucement //expose le compé pour utilisation dans le template
       },
 
       name: "DoucementView",
@@ -78,16 +83,18 @@
 
 
         ],
+        loading: false,
         valid: true,
         search: '',
         searchRules: [
           v => !!v || 'Vous devez indiquer une ville pour la recherche',
           v => (v && v.length <= 20  ) || 'Le nom de la ville doit être inférieur à 20 caractères',
-          v => (v[0].toUpperCase() === v[0]) && (v.slice(1) !== v.slice(1).toUpperCase()) || 'Seule la première lettre doit être en majuscule',
+          v => (v[0].toUpperCase() === v[0]) && (v.slice(1) !== v.slice(1).toUpperCase()) || 'Première en majuscule, le reste en minuscule',
 
         ],
         errorMessage: '',
-        error: false
+        error: false,
+        message: ''
 
 
       }),
@@ -108,7 +115,9 @@
           // on réinitialise une erreur si il y en avait une
           this.error = false;
 
-          if (this.$refs.form.validate()) {
+          if (this.$refs.form.validate() && ( this.search[0].toUpperCase() === this.search[0]
+          && this.search.slice(1) === this.search.slice(1).toLowerCase())) {
+            this.loading = true;
             let ville = this.search.replaceAll(' ', '+');
 
             var formData = new FormData();
@@ -124,6 +133,7 @@
 
                 this.cardItems = []
                 console.log(res.data)
+                this.loading = false
 
 
                 // on ajoute au tableau les données reçues du backend
@@ -143,9 +153,14 @@
                   // Si c'est une erreur 520, il a été définit que ce sont des informations d'erreur
                   // envoyées par le back.
                   // Nous pouvons donc l'utiliser pour afficher le message à l'utilisateur
-                  if (error.response.status === 520) {
+                  if (error.response.status === 500) {
+
                     self.errorMessage = error.response.data.detail;
                     self.error = true;
+                    self.message = "La ville n'existe pas ! Réessaie ! "
+                    this.loading = false;
+
+
                   }
 
                 } else if (error.request) {

@@ -11,7 +11,6 @@ class InstantService:
     def previsions_all(self):
         data = self._pollution_ville.get_prev()
         data_dict = {
-            'period': str(datetime.datetime.fromtimestamp(int(data.instant)))[10:],
             'aqi': data.aqi,
             'co': data.co,
             'no': data.no,
