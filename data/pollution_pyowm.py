@@ -176,6 +176,7 @@ class PollutionPyown:
         return forecast
 
 
+"""
 p = PrevTabWeekBuilder('Lille')
 data = str(p.tab_build())
 
@@ -184,5 +185,5 @@ with open("test.txt", 'w') as t:
 
 with open("test.txt", 'w') as t:
     t.write(data)
-
+"""
 

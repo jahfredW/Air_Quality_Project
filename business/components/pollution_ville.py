@@ -161,7 +161,7 @@ class PollutionVille:
         else:
             id_ville = self._pollution_data.get_id_ville(self.ville.nom)[0][0]
 
-        self._pollution_data.delete_prevision_ville(self.ville.nom)
+        self._pollution_data.delete_prevision_ville(self.ville.nom, "")
 
         print('Ajout des données en BDD:')
         for day, values in forecast_dict.items():
@@ -173,7 +173,7 @@ class PollutionVille:
                                                        id_ville)
 
     def _need_refresh(self):
-        date_last_update = self._pollution_data.get_last_update(self.ville.nom)
+        date_last_update = self._pollution_data.get_last_update(self.ville.nom, "")
 
         if date_last_update is None:
             return True

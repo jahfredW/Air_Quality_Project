@@ -3,3 +3,9 @@ venv/
 .idea
 /etude/tests/
 /etude/UML/
+alembic/
+compagny/
+*.py[cod]
+!**/__pycache__/
+__pycache__/
+etude/

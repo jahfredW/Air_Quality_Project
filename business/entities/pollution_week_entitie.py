@@ -4,6 +4,7 @@ from business.entities.ville import Ville
 
 class PollutionWeekEntitie:
     def __init__(self):
+        self.instant = None
         self.aqi: int = 0
         self.co: float = 0
         self.no: float = 0
@@ -13,9 +14,9 @@ class PollutionWeekEntitie:
         self.pm2_5: float = 0
         self.pm10: float = 0
         self.nh3: float = 0
-        self.instant = None
-        self.week = None
         self.ville = Ville()
+        self.utc_time: int = 0
+        self.period = -1
 
     @property
     def aqi(self):
@@ -106,11 +107,17 @@ class PollutionWeekEntitie:
         self._ville = value
 
     @property
-    def week(self):
-        return self._week
+    def period(self):
+        return self._period
 
-    @week.setter
-    def week(self, value):
-        self._week = value
+    @period.setter
+    def period(self, value):
+        self._period = value
 
+    @property
+    def utc_time(self):
+        return self._utc_time
 
+    @utc_time.setter
+    def utc_time(self, value):
+        self._utc_time = value

@@ -11,8 +11,6 @@ try:
     #méthode getopt ( se référer à la doc pour plus de renseignements )
     opts, argv = getopt.getopt(sys.argv[1:], 'ahd:iwv', ['api', 'display=', 'interactive', 'help', 'web', 'vue'])
 
-
-
     for opt, argv in opts:
         #mode display ( Brest préconfiguré )
         if opt in ('-d', '--display'):

@@ -71,7 +71,6 @@ class PollutionForecast:
                 pollution.pm10 = self._pollution_ville[0][3]['pm10']
                 pollution.nh3 = self._pollution_ville[0][3]['nh3']
 
-                print(pollution.aqi, pollution.co, pollution.o3)
 
 
 
@@ -150,7 +149,7 @@ class PollutionForecast:
             id_ville = self._pollution_data.get_id_ville(self.ville.nom)[0][0]
             print(id_ville)
 
-        self._pollution_data.delete_prevision_ville_instant(self.ville.nom)
+        self._pollution_data.delete_prevision_ville(self.ville.nom, "_daily")
 
         print('Ajout des données en BDD:')
 
@@ -181,3 +180,4 @@ class PollutionForecast:
 
 
 
+p = PollutionForecast('Dunkerque')
