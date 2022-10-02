@@ -17,11 +17,6 @@ class Launcher():
 
     def _command_launcher(self):
         os.system(self._command)
-    # os.system(command)
-
-
-# on se positionne dans le répertoire bin de l'environnement virtuel python pour démarrer
-# le serveur web unicorn
 
 class Api_launcher():
     def __init__(self, port):
@@ -40,7 +35,6 @@ class Api_launcher():
 
     def _command_launcher(self):
         os.system(self._command)
-
 
 class Vue_launcher():
     def __init__(self):

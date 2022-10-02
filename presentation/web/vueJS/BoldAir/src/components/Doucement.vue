@@ -20,7 +20,7 @@
         <div class="card-content">
             <div class="columns is-mobile is-gapless">
                 <div class="column has-text-centered">
-                    <p>{{ this.description}}</p>
+                    <p>{{ this.description }}</p>
                 </div>  
 
             </div>
@@ -53,8 +53,6 @@
             INDICE_DEGRADE: 4,
             INDICE_MAUVAIS: 5,
 
-        
-         
             logoGood,
             logoCorrect,
             logoMediocre,

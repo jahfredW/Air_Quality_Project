@@ -55,7 +55,7 @@ class Pollution:
         elif aqi == 4:
             description = "Qualité de l'air dégradée !"
         else:
-            description = "Alerte Pollution ! "
+            description = "Alerte Pollution !"
 
         return description
 

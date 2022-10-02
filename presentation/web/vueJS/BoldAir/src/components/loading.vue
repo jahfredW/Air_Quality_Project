@@ -1,6 +1,5 @@
 <template>
   <div class="has-text-centered mt-5">
-    {{ this.setShow() }}
     <v-progress-circular
       indeterminate
       color="#dd99ff"
@@ -21,20 +20,6 @@
       };
     },
 
-    props : {
-      show: Boolean
-    },
-
-    methods: {
-      setShow() {
-        setTimeout(() => {
-          this.show = false;
-        }, 4500);
-
-      },
-
-
-    }
   }
 </script>
 

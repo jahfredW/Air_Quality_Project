@@ -9,7 +9,7 @@
                         </div>
                         <div class="column is-narrow">
                             <div class="subtitle" >
-                                nom : {{ this.nom}}
+                                nom : {{ this.nom }}
                             </div>
                         </div> 
                     </div>
@@ -53,7 +53,6 @@
     export default {
 
         data: () => ({
-
 
         }),
 

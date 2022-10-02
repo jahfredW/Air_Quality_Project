@@ -40,24 +40,16 @@
 
         <v-col v-if="loading" cols="12">
           <Loading>
-
           </Loading>
-
         </v-col>
-        <v-col class="subtitle has-text-centered" cols="12"> {{ this.toDate() }}</v-col>
-
-
-        <v-col v-for="(card, index) in this.cardItems[0]" :key="card">
-
-          <InstantData
-            :no="card"
-            :period="index"
+        <!--<v-col class="subtitle has-text-centered pt-5" cols="12"> {{ this.toDate() }}</v-col>-->
+        <v-col v-if="cardItems.length > 0" >
+          <InstantData class="mt-2"
+            :polluant-array="cardItems"
             >
         </InstantData>
 
         </v-col>
-
-
       </v-row>
     </v-container>
   </template>
@@ -120,7 +112,7 @@ export default defineComponent({
 
 
 
-        toDate() {
+        /*toDate() {
           if (this.cardItems.length > 0) {
             const timestamp = new Date().getTime();
             let date = new Date(timestamp)
@@ -128,7 +120,7 @@ export default defineComponent({
             return dateStr.slice(0, 25)
           }
 
-        },
+        },*/
 
         submit() {
 
@@ -170,6 +162,7 @@ export default defineComponent({
                 // on ajoute au tableau les données reçues du backend
                 for (var i in res.data) {
                   this.cardItems.push(res.data[i])
+
                 }
 
               })

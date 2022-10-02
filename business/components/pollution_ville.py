@@ -188,4 +188,4 @@ class PollutionVille:
 
 
 
-p = PollutionVille('Lille')
+

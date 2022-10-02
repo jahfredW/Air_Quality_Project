@@ -80,8 +80,6 @@
 
       data: () => ({
         cardItems: [
-
-
         ],
         loading: false,
         valid: true,
@@ -95,8 +93,6 @@
         errorMessage: '',
         error: false,
         message: ''
-
-
       }),
 
       methods: {
@@ -111,6 +107,7 @@
           // ce qui pose problème lorsqu'on veut mettre à jour des données du composant.
           // c'est pourquoi on crée un variable qui sert de référence au composant.
           let self = this;
+          this.cardItems = [];
 
           // on réinitialise une erreur si il y en avait une
           this.error = false;
@@ -140,6 +137,8 @@
                 for (var i in res.data) {
                   this.cardItems.push(res.data[i])
                 }
+
+                console.log(this.cardItems)
 
               })
               .catch(function (error) {

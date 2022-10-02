@@ -21,8 +21,6 @@ api_create_models.Base.metadata.create_all(bind=engine)
 oauth2_bearer = OAuth2PasswordBearer(tokenUrl="token")
 
 
-
-
 class CreateUser(BaseModel):
     """
     class simplifiée hérite de Basemodel

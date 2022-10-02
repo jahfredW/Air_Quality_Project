@@ -112,7 +112,6 @@ class Configuration(metaclass=Singleton):
         with open(self._config_file_path, 'w+') as conf:
             config_object.write(conf)
 
-
     @property
     def version(self):
         config_object = ConfigParser()
