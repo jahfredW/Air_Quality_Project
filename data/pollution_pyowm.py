@@ -157,7 +157,7 @@ class PollutionPyown:
                 forecast = pol.air_quality_forecast_at_coords(emplacement.lat, emplacement.lon)
                 for f in forecast:
                     print(f.air_quality_data)
-                return (type(forecast))
+                return forecast
 
             except:
                 print("Connexion à l'API indisponible pour le moment")
@@ -178,17 +178,10 @@ class PollutionPyown:
         return forecast
 
 
-"""
-p = PrevTabWeekBuilder('Lille')
-data = str(p.tab_build())
-print(data)
 
-with open("test.txt", 'w') as t:
-    json.dump(data, t)
 
-with open("test.txt", 'w') as t:
-    t.write(data)
-"""
 
+p = PollutionPyown()
+p._get_pollution_ville('Grenoble')
 
 

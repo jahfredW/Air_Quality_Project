@@ -243,13 +243,38 @@ class PollutionData():
                 connection.close()
 
 
-    def get_last_update(self, nom_ville, table_name):
+    def get_last_update(self, nom_ville):
         """
         :param nom_ville:
         :return: retourne la date de dernière mise à jour d'une ville dans la table pollution.py
         """
-        sql = "select last_update from pollution {0} inner join ville on pollution_week.id_ville = ville.id_ville where ville.nom = '{1}' limit 1;".format(
-            table_name, nom_ville)
+        sql = "select last_update from pollution inner join ville on pollution.id_ville = ville.id_ville where ville.nom = '{0}' limit 1;".format(
+            nom_ville)
+
+        connection = None
+
+        try:
+            connection = psycopg2.connect(**self.params)
+            cursor = connection.cursor()
+            cursor.execute(sql, nom_ville)
+            row = cursor.fetchone()[0]
+            connection.commit()
+            cursor.close()
+
+            return row
+        except (Exception, psycopg2.DatabaseError) as error:
+            print('Error get_last_update : La ville n est pas encore enregistrée')
+        finally:
+            if connection is not None:
+                connection.close()
+
+    def get_last_update_week(self, nom_ville):
+        """
+        :param nom_ville:
+        :return: retourne la date de dernière mise à jour d'une ville dans la table pollution.py
+        """
+        sql = "select last_update from pollution_week inner join ville on pollution_week.id_ville = ville.id_ville where ville.nom = '{0}' limit 1;".format(
+             nom_ville)
 
         connection = None
 
@@ -294,13 +319,72 @@ class PollutionData():
                 connection.close()
 
 
-    def delete_prevision_ville(self, nom_ville, dtb_name: str):
+    def delete_prevision_ville(self, nom_ville):
         """
         Supprime les prévisions météo pour une ville
         :param nom_ville: nom de la ville
         :return:
         """
-        sql = f"DELETE FROM pollution {dtb_name} WHERE id_ville in (select id_ville from ville where nom = '{nom_ville}');"
+        sql = f"DELETE FROM pollution WHERE id_ville in (select id_ville from ville where nom = '{nom_ville}');"
+
+        connection = None
+        try:
+            # obtention de la connexion à la base de données
+            connection = psycopg2.connect(**self.params)
+            # create a new cursor
+            cursor = connection.cursor()
+
+            cursor.execute(sql, nom_ville)
+
+            # commit the changes to the database
+            connection.commit()
+            # close communication with the database
+            cursor.close()
+
+        except (Exception, psycopg2.DatabaseError) as error:
+            print("Erreur delete_prevision_ville:")
+            print(error)
+        finally:
+            if connection is not None:
+                connection.close()
+
+    def delete_prevision_ville_daily(self, nom_ville):
+        """
+        Supprime les prévisions météo pour une ville
+        :param nom_ville: nom de la ville
+        :return:
+        """
+        sql = f"DELETE FROM pollution_daily WHERE id_ville in (select id_ville from ville where nom = '{nom_ville}');"
+
+        connection = None
+        try:
+            # obtention de la connexion à la base de données
+            connection = psycopg2.connect(**self.params)
+            # create a new cursor
+            cursor = connection.cursor()
+
+            cursor.execute(sql, nom_ville)
+
+            # commit the changes to the database
+            connection.commit()
+            # close communication with the database
+            cursor.close()
+
+        except (Exception, psycopg2.DatabaseError) as error:
+            print("Erreur delete_prevision_ville:")
+            print(error)
+        finally:
+            if connection is not None:
+                connection.close()
+
+
+    def delete_prevision_ville_week(self, nom_ville):
+        """
+        Supprime les prévisions météo pour une ville
+        :param nom_ville: nom de la ville
+        :return:
+        """
+        sql = f"DELETE FROM pollution_week WHERE id_ville in (select id_ville from ville where nom = '{nom_ville}');"
 
         connection = None
         try:

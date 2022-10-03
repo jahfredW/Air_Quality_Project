@@ -12,6 +12,7 @@ class PrevisionsService:
         print(data)
         for index in range(len(data)):
             previsions[index] = data[index]
+        print(previsions)
         return previsions
 
     def previsions_pm2_5(self):
@@ -27,7 +28,6 @@ class PrevisionsService:
         for index in range(len(indices)):
             previsions[index] = self._pollution_ville.aqi_description(indices[index])
         return previsions
-
 
 
 

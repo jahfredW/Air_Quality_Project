@@ -25,3 +25,5 @@ class InstantService:
 
 
 
+i = InstantService('Paris')
+i.previsions_all()

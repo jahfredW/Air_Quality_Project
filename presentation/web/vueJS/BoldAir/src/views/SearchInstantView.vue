@@ -62,6 +62,7 @@ import {useUrlStore} from "../stores/url";
 // Components
 import InstantData from "../components/InstantData.vue";
 import Loading from "../components/loading.vue";
+import Doucement from "../components/Doucement.vue";
 import axios from 'axios';
 
 
@@ -81,6 +82,7 @@ export default defineComponent({
       components: {
         InstantData,
         Loading,
+        Doucement,
       },
 
       name: "SearchInstantView",

@@ -154,14 +154,15 @@ class PollutionVille:
         # En fonction de la date ( donc forcément une prev par jour)
         for f in self._pollution_ville:
             forecast_dict[f.reference_time('date').date().isoformat()] = f.air_quality_data
-
+            print('ici', forecast_dict)
+        print(forecast_dict)
 
         if not self._pollution_data.ville_exists(self.ville.nom):
             raise Exception("Save meteo ville : la ville n'a pas de correspondance")
         else:
             id_ville = self._pollution_data.get_id_ville(self.ville.nom)[0][0]
 
-        self._pollution_data.delete_prevision_ville(self.ville.nom, "")
+        self._pollution_data.delete_prevision_ville(self.ville.nom)
 
         print('Ajout des données en BDD:')
         for day, values in forecast_dict.items():
@@ -173,7 +174,7 @@ class PollutionVille:
                                                        id_ville)
 
     def _need_refresh(self):
-        date_last_update = self._pollution_data.get_last_update(self.ville.nom, "")
+        date_last_update = self._pollution_data.get_last_update(self.ville.nom)
 
         if date_last_update is None:
             return True
